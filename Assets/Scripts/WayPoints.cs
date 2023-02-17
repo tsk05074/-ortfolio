@@ -15,8 +15,4 @@ public class WayPoints : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        
-    }
 }
