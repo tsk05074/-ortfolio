@@ -5,13 +5,20 @@ using UnityEngine;
 public class PlayerSpawner : MonoBehaviour
 {
     public GameObject[] playerPrefab;
+    public Transform[] playerZone;
     public float playerCount = 2;
     WaveSpawner waveSpawner;
-    
+
+    private void Awake()
+    {
+    }
+
     void Start()
     {
         waveSpawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
         StartCoroutine(SpawnPlayer());
+
+
     }
 
     void Update()
@@ -28,15 +35,26 @@ public class PlayerSpawner : MonoBehaviour
 
     public IEnumerator SpawnPlayer()
     {
-        
         for (int i = 0; i < playerCount; i++)
         {
             int index = Random.Range(0, 3);
-            int XRange = Random.Range(5, 8);
-            int YRange = Random.Range(-4, 3);
+            int zoneIndex = Random.Range(0, playerZone.Length);
 
-            Instantiate(playerPrefab[index], new Vector2(XRange, YRange), transform.rotation);
+            if (playerZone[zoneIndex].transform.childCount == 0)
+            {
+                var zoneObj = Instantiate(playerPrefab[index], playerZone[zoneIndex].transform.position, playerZone[zoneIndex].transform.rotation);
+                zoneObj.transform.parent = playerZone[zoneIndex].transform;
+                //playerPrefab[index].transform.SetParent(playerZone[zoneIndex].transform);
+            }
+            else
+            {
+                Debug.Log("컨티뉴함");
+
+                continue;
+            }
             yield return new WaitForSeconds(0.6f);
+
         }
+
     }
 }

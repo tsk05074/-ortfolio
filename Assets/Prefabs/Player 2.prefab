@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3773565635836519964}
   - component: {fileID: 3773565635836519971}
-  - component: {fileID: 1860808781967358139}
+  - component: {fileID: 1865755472852046450}
+  - component: {fileID: 7221377908065167161}
   m_Layer: 0
   m_Name: Player 2
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3773565635836519970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1860808781967358139
+--- !u!114 &1865755472852046450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,3 +98,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c8783e22b93684c9aa725e436378fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &7221377908065167161
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3773565635836519970}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.625, y: 0.6875, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
