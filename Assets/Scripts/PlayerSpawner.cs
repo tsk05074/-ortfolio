@@ -8,6 +8,8 @@ public class PlayerSpawner : MonoBehaviour
     public Transform[] playerZone;
     public float playerCount = 2;
     WaveSpawner waveSpawner;
+    [SerializeField]
+    private WaveSpawner enemySpawner;
 
     private void Awake()
     {
@@ -17,8 +19,6 @@ public class PlayerSpawner : MonoBehaviour
     {
         waveSpawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
         StartCoroutine(SpawnPlayer());
-
-
     }
 
     void Update()
@@ -44,13 +44,13 @@ public class PlayerSpawner : MonoBehaviour
             {
                 var zoneObj = Instantiate(playerPrefab[index], playerZone[zoneIndex].transform.position, playerZone[zoneIndex].transform.rotation);
                 zoneObj.transform.parent = playerZone[zoneIndex].transform;
-                //playerPrefab[index].transform.SetParent(playerZone[zoneIndex].transform);
+                zoneObj.GetComponent<Weapon>().Setup(enemySpawner);
             }
             else
             {
                 Debug.Log("컨티뉴함");
 
-                continue;
+                break;
             }
             yield return new WaitForSeconds(0.6f);
 

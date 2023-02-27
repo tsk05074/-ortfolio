@@ -8,10 +8,12 @@ public class Enemy : MonoBehaviour
 
     private Transform target;
     private int wavepointIndex = 0;
+    WaveSpawner wavespawner;
 
     void Start()
     {
         target = WayPoints.points[0];
+        wavespawner = GameObject.Find("Wavespawner").GetComponent<WaveSpawner>();
     }
 
     void Update()
@@ -37,5 +39,10 @@ public class Enemy : MonoBehaviour
             wavepointIndex++;
             target = WayPoints.points[wavepointIndex];
         }
+    }
+
+    public void OnDie()
+    {
+        wavespawner.Destroyenemy(this);
     }
 }

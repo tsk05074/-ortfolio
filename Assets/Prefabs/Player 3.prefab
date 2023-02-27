@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3439323436171675316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4754009698144702266}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4754009698144702266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3439323436171675316}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.228, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5997514869057047290}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5997514869057047292
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,6 +43,7 @@ GameObject:
   - component: {fileID: 5997514869057047293}
   - component: {fileID: -1110229118365789042}
   - component: {fileID: -2089369227781276230}
+  - component: {fileID: -6718326149857830065}
   m_Layer: 0
   m_Name: Player 3
   m_TagString: Untagged
@@ -30,7 +62,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4754009698144702266}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -75,12 +108,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -932193799, guid: 21908c2747b61e74b968716bcd9f5b68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 04766944cc60beb4db3944df9335a519, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5, y: 0.53125}
+  m_Size: {x: 1, y: 0.90625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -111,3 +144,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.53125, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6718326149857830065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5997514869057047292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e47daced0f6eb924aba3062991610f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projecttilePrefab: {fileID: 7107894905651220966, guid: 42669da5a7755074490de8a37c29f28f, type: 3}
+  spawnPoint: {fileID: 4754009698144702266}
+  attackRate: 0.5
+  attackRange: 2

@@ -13,6 +13,15 @@ public class WaveSpawner : MonoBehaviour
     public float waveEnd = 10;
     public int waveText = 1;
 
+    private List<Enemy> enemyList;
+    public List<Enemy> EnemyList => enemyList;
+
+    private void Awake()
+    {
+        //적 리스트 메모리 할당
+        enemyList = new List<Enemy>();
+    }
+
     void Start()
     {
         playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
@@ -46,9 +55,20 @@ public class WaveSpawner : MonoBehaviour
         {
             UIManager.Instance.waveCount.text = "Count : " + i;
 
-            Instantiate(enemyPrefab[index], enemyPrefab[index].transform.position, transform.rotation);
+            GameObject clone = Instantiate(enemyPrefab[index]);
+            Enemy enemy = clone.GetComponent<Enemy>();
+
+            //Instantiate(enemyPrefab[index], enemyPrefab[index].transform.position, transform.rotation);
+            
+            enemyList.Add(enemy);
             yield return new WaitForSeconds(0.6f);
         }
+    }
+
+    public void Destroyenemy(Enemy enemy)
+    {
+        enemyList.Remove(enemy);
+        Destroy(enemy.gameObject);
     }
 
 }
