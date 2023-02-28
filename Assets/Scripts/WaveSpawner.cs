@@ -17,6 +17,8 @@ public class WaveSpawner : MonoBehaviour
     public int waveCount = 1;
     public float waveEnd = 10;
     public int waveText = 1;
+    [SerializeField]
+    private PlayerGold playerGold;
 
     private List<Enemy> enemyList;
     public List<Enemy> EnemyList => enemyList;
@@ -35,7 +37,10 @@ public class WaveSpawner : MonoBehaviour
 
     void Update()
     {
-        WaveEnemy();  
+        WaveEnemy();
+
+        UIManager.Instance.waveCount.text = "Count : " + enemyList.Count;
+
     }
 
     public void WaveEnemy()
@@ -58,22 +63,24 @@ public class WaveSpawner : MonoBehaviour
         int index = Random.Range(0, 3);
         for (int i=0;i<enemyCount;i++)
         {
-            UIManager.Instance.waveCount.text = "Count : " + i;
-
             GameObject clone = Instantiate(enemyPrefab[index]);
             Enemy enemy = clone.GetComponent<Enemy>();
 
             //Instantiate(enemyPrefab[index], enemyPrefab[index].transform.position, transform.rotation);
             
             enemyList.Add(enemy);
+
             SpawnEnemyHPSlider(clone);
             yield return new WaitForSeconds(0.6f);
         }
     }
 
-    public void Destroyenemy(Enemy enemy)
+    public void Destroyenemy(Enemy enemy, int gold)
     {
         Debug.Log("Á×¾î¾ßÇÔ");
+        playerGold.CurrentGold += gold;
+        UIManager.Instance.waveGold.text = "Gold : " + playerGold.CurrentGold;
+
         enemyList.Remove(enemy);
         Destroy(enemy.gameObject);
     }

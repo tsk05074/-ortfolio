@@ -26,7 +26,6 @@ public class EnemyHP : MonoBehaviour
         if (isDie == true) return;
 
         currentHP -= damage;
-        Debug.Log(currentHP);
 
         StopCoroutine("HitAlphaAnimation");
         StartCoroutine("HitAlphaAnimation");

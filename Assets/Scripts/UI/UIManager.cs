@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class UIManager : MonoBehaviour
 {
     private static UIManager instance = null;
     WaveSpawner wavespawner;
+    PlayerGold playerGold;
+    
 
-    public Text wavetext;
-    public Text waveTime;
-    public Text waveCount;
+    public TextMeshProUGUI wavetext;
+    public TextMeshProUGUI waveTime;
+    public TextMeshProUGUI waveCount;
+    public TextMeshProUGUI waveGold;
 
     private void Awake()
     {
@@ -41,13 +45,14 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         wavespawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
-        wavetext.text = "WAVE" + wavespawner.waveText;
+        playerGold = GameObject.Find("PlayerSpawner").GetComponent<PlayerGold>();
+        wavetext.text = "WAVE : " + wavespawner.waveText;
         waveTime.text = "Time : " + wavespawner.waveEnd;
-        waveCount.text = "Count : " + wavespawner.waveCount;
+        waveCount.text = "Count : " + wavespawner.EnemyList.Count;
+        waveGold.text = "Gold : " + playerGold.CurrentGold;
     }
 
     void Update()
     {
-
     }
 }

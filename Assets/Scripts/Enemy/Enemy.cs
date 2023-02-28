@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour
     private int wavepointIndex = 0;
     WaveSpawner wavespawner;
 
+    [SerializeField]
+    private int gold = 10; //Àû »ç¸Á ½Ã È¹µæ °¡´ÉÇÑ °ñµå
+
     void Start()
     {
         target = WayPoints.points[0];
@@ -43,6 +46,6 @@ public class Enemy : MonoBehaviour
 
     public void OnDie()
     {
-        wavespawner.Destroyenemy(this);
+        wavespawner.Destroyenemy(this, gold);
     }
 }
