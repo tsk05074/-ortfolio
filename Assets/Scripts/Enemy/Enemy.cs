@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         target = WayPoints.points[0];
-        wavespawner = GameObject.Find("Wavespawner").GetComponent<WaveSpawner>();
+        wavespawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
     }
 
     void Update()

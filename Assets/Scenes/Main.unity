@@ -3757,6 +3757,8 @@ MonoBehaviour:
   - {fileID: 4203618607599092917, guid: 9e61aefbb0fe4a94fa7d8492bc6495dc, type: 3}
   - {fileID: 4200041584704291594, guid: 49a4d61560df5a94494d743012b0be64, type: 3}
   - {fileID: 5646374759001046520, guid: 4184d830e1dbae245a5add27817561bc, type: 3}
+  enemyHPSliderPrefab: {fileID: 8513909371897261720, guid: bc7d6deaa9ef7874994e5700d046a299, type: 3}
+  canvasTransform: {fileID: 2114405764}
   enemyCount: 1
   waveCount: 100
   waveEnd: 100
@@ -6435,12 +6437,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -6455,7 +6457,7 @@ Canvas:
   m_GameObject: {fileID: 2114405760}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0

@@ -14,6 +14,8 @@ public class Weapon : MonoBehaviour
     private float attackRate = 0.5f; //공격 속도
     [SerializeField]
     private float attackRange = 2.0f;
+    [SerializeField]
+    private int attackDamage = 1;
     private WeaponState weaponState = WeaponState.SearchTarget; 
 
     private Transform attackTarget = null;
@@ -50,16 +52,6 @@ public class Weapon : MonoBehaviour
         }
         */
     }
-    /*
-    private void RotateToTarget()
-    {
-        float dx = attackTarget.position.x - transform.position.x;
-        float dy = attackTarget.position.y - transform.position.y;
-
-        float degree = Mathf.Atan2(dy,dx) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0,0, degree);
-    }
-    */
 
     private IEnumerator SearchTarget()
     {
@@ -68,12 +60,13 @@ public class Weapon : MonoBehaviour
             float closestDistSqr = Mathf.Infinity;
 
             for (int i = 0; i<enemySpawner.EnemyList.Count; ++i){
+
                 float distance = Vector3.Distance(enemySpawner.EnemyList[i].transform.position, transform.position);
                 //현재 검사중인 적과의 거리가 공격범위 내에 있고, 현재까지 검사한 적보다 거리가 가까우면
                 if (distance <= attackRange && distance <= closestDistSqr)
                 {
                     closestDistSqr = distance;
-                    attackTarget = enemySpawner.enemyPrefab[i].transform;
+                    attackTarget = enemySpawner.EnemyList[i].transform;
                 }
             }
 
@@ -115,6 +108,7 @@ public class Weapon : MonoBehaviour
 
     void SpawnProjectTile()
     {
-        Instantiate(projecttilePrefab, spawnPoint.position, Quaternion.identity);
+        GameObject clone = Instantiate(projecttilePrefab, spawnPoint.position, Quaternion.identity);
+        clone.GetComponent<Projectile>().Setup(attackTarget, attackDamage);
     }
 }

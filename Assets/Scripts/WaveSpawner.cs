@@ -8,6 +8,11 @@ public class WaveSpawner : MonoBehaviour
     public GameObject[] enemyPrefab;
     PlayerSpawner playerSpawner;
 
+    [SerializeField]
+    private GameObject enemyHPSliderPrefab;     //적 체력 프리팹
+    [SerializeField]
+    private Transform canvasTransform;  //ui를 표현하는 canvas 오브젝트의 transform
+
     public int enemyCount = 20;
     public int waveCount = 1;
     public float waveEnd = 10;
@@ -61,14 +66,27 @@ public class WaveSpawner : MonoBehaviour
             //Instantiate(enemyPrefab[index], enemyPrefab[index].transform.position, transform.rotation);
             
             enemyList.Add(enemy);
+            SpawnEnemyHPSlider(clone);
             yield return new WaitForSeconds(0.6f);
         }
     }
 
     public void Destroyenemy(Enemy enemy)
     {
+        Debug.Log("죽어야함");
         enemyList.Remove(enemy);
         Destroy(enemy.gameObject);
+    }
+
+    void SpawnEnemyHPSlider(GameObject enemy)
+    {
+        //적 체력을 나타내는 Slider UI 생성
+        GameObject sliderClone = Instantiate(enemyHPSliderPrefab);
+        sliderClone.transform.SetParent(canvasTransform);
+        sliderClone.transform.localScale = Vector3.one;
+
+        sliderClone.GetComponent<SliderPositionAutoSetter>().Setup(enemy.transform);
+        sliderClone.GetComponent<EnemyHPViewer>().Setup(enemy.GetComponent<EnemyHP>());
     }
 
 }

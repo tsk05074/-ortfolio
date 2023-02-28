@@ -40,7 +40,6 @@ public class DragandDrop : MonoBehaviour
             else
             {
                 transform.position = currentPosition;
-                Debug.Log("다른거 히트함");
             }
         }
     }
@@ -48,7 +47,6 @@ public class DragandDrop : MonoBehaviour
     public void SpawnTower(Transform tileTransform)
     {
         //Tile tile = tileTransform.GetComponent<Tile>();
-        Debug.Log("tileTransform childCout" + tileTransform.transform.childCount);
         if (tileTransform.transform.childCount == 0)
         {
             transform.position = new Vector3(tileTransform.transform.localPosition.x, tileTransform.transform.localPosition.y, tileTransform.transform.localPosition.z);
