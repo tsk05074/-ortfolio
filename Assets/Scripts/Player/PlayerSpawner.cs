@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
+    private PlayerTemplate playerTemplate;  //플레이어 정보
+
     public GameObject[] playerPrefab;
     public Transform[] playerZone;
     public float playerCount = 2;
@@ -23,6 +25,7 @@ public class PlayerSpawner : MonoBehaviour
 
     void Update()
     {
+        //WavePlayer();
     }
 
     public void WavePlayer()
@@ -42,6 +45,7 @@ public class PlayerSpawner : MonoBehaviour
 
             if (playerZone[zoneIndex].transform.childCount == 0)
             {
+                //Vector3 position = tileTransform.position + Vector3.back;
                 var zoneObj = Instantiate(playerPrefab[index], playerZone[zoneIndex].transform.position, playerZone[zoneIndex].transform.rotation);
                 zoneObj.transform.parent = playerZone[zoneIndex].transform;
                 zoneObj.GetComponent<Weapon>().Setup(enemySpawner);

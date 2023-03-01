@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f271f16b994a4047976c4f234192f1a, type: 3}
+  m_Name: TowerCannon
+  m_EditorClassIdentifier: 
+  weapon:
+  - sprite: {fileID: 21300000, guid: 025ec63a1e98f9549b3bed5d5086a69a, type: 3}
+    damage: 1
+    rate: 0.5
+    range: 2
+  - sprite: {fileID: 21300000, guid: 219b0c289230d644f9be39ffdf5aa96a, type: 3}
+    damage: 1
+    rate: 0.5
+    range: 2
+  - sprite: {fileID: 21300000, guid: 04766944cc60beb4db3944df9335a519, type: 3}
+    damage: 1
+    rate: 0.5
+    range: 2

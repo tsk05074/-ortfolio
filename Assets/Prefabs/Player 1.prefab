@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2642123837591909582}
   m_Layer: 0
   m_Name: Player 1
-  m_TagString: Untagged
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1762010694, guid: 21908c2747b61e74b968716bcd9f5b68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 025ec63a1e98f9549b3bed5d5086a69a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

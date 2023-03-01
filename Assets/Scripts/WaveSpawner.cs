@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour
 {
+    [SerializeField]
     public GameObject[] enemyPrefab;
     PlayerSpawner playerSpawner;
 

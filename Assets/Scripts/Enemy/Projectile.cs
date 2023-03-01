@@ -8,9 +8,9 @@ public class Projectile : MonoBehaviour
     private float moveSpeed = 0.0f;
 
     private Transform target;
-    private int damage;
+    private float damage;
 
-    public void Setup(Transform target, int damage)
+    public void Setup(Transform target, float damage)
     {
         this.target = target;
         this.damage = damage;

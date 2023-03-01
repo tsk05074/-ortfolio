@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: -6718326149857830065}
   m_Layer: 0
   m_Name: Player 3
-  m_TagString: Untagged
+  m_TagString: Player3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,3 +160,4 @@ MonoBehaviour:
   spawnPoint: {fileID: 4754009698144702266}
   attackRate: 0.5
   attackRange: 2
+  attackDamage: 1

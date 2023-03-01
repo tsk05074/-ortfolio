@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
 
 public class DragandDrop : MonoBehaviour
 {
@@ -34,7 +35,6 @@ public class DragandDrop : MonoBehaviour
         {
             if (hit.transform.CompareTag("playerTile"))
             {
-                Debug.Log("playerTile 히트했음");
                 SpawnTower(hit.transform);
             }
             else
@@ -52,7 +52,6 @@ public class DragandDrop : MonoBehaviour
             transform.position = new Vector3(tileTransform.transform.localPosition.x, tileTransform.transform.localPosition.y, tileTransform.transform.localPosition.z);
 
             transform.SetParent(tileTransform);
-            Debug.Log("배치완료");
         }
         else
         {
@@ -62,10 +61,34 @@ public class DragandDrop : MonoBehaviour
 
     void Update()
     {
+        //마우스가 UI에 머물러 있으 ㄹ때는 아래 코드가 실행되지 않도록 함
+        if (EventSystem.current.IsPointerOverGameObject() == true)
+        {
+            return;
+        }
+
         if (isDragging)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             transform.Translate(mousePosition);
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                if (hit.transform.CompareTag("Player3"))
+                {
+                    UIManager.Instance.OnPnanel(hit.transform);
+                }
+            }
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            UIManager.Instance.OffPanel();
+        }
+     
     }
 }
