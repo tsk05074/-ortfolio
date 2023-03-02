@@ -35,8 +35,6 @@ public class Projectile : MonoBehaviour
         if (!collision.CompareTag("Enemy")) return;     //적이 아닌 대상과 부딪히면
         if (collision.transform != target) return; //현재 target인 적이 아닐 때
 
-        Debug.Log("때렸음");
-        //collision.GetComponent<Enemy>().OnDie();
         collision.GetComponent<EnemyHP>().TakeDamage(damage);
         Destroy(this.gameObject);
     }

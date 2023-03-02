@@ -17,37 +17,34 @@ public class PlayerSpawner : MonoBehaviour
 
     void Start()
     {
-        PlayerSpawner playerspawner = gameObject.GetComponent<PlayerSpawner>();
-        playerspawner.StartCoroutine(SpawnPlayer());
+        //PlayerSpawner playerspawner = gameObject.GetComponent<PlayerSpawner>();
+        enemySpawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
+        StartCoroutine("SpawnPlayer");
 
     }
 
     public IEnumerator SpawnPlayer()
     {
-        while (true)
+        yield return new WaitForSeconds(0.1f);
+
+        for (int i = 0; i < playerCount; i++)
         {
-            for (int i = 0; i < playerCount; i++)
+            int index = Random.Range(0, 3);
+            int zoneIndex = Random.Range(0, playerZone.Length);
+
+            if (playerZone[zoneIndex].transform.childCount == 0)
             {
-                int index = Random.Range(0, 3);
-                int zoneIndex = Random.Range(0, playerZone.Length);
-
-                if (playerZone[zoneIndex].transform.childCount == 0)
-                {
-                    //Vector3 position = tileTransform.position + Vector3.back;
-                    var zoneObj = Instantiate(playerPrefab[index], playerZone[zoneIndex].transform.position, playerZone[zoneIndex].transform.rotation);
-                    zoneObj.transform.parent = playerZone[zoneIndex].transform;
-                    zoneObj.GetComponent<Weapon>().Setup(enemySpawner);
-                }
-                else
-                {
-                    Debug.Log("컨티뉴함");
-
-                    break;
-                }
-                yield return new WaitForSeconds(0.6f);
+                var zoneObj = Instantiate(playerPrefab[index], playerZone[zoneIndex].transform.position, playerZone[zoneIndex].transform.rotation);
+                zoneObj.transform.parent = playerZone[zoneIndex].transform;
+                zoneObj.GetComponent<Weapon>().Setup(enemySpawner);
             }
-            yield return new WaitForSeconds(10.0f);
+            else
+            {
+                Debug.Log("컨티뉴함");
 
+                break;
+            }
+            yield return new WaitForSeconds(0.6f);
         }
     }
        

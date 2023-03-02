@@ -8,6 +8,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField]
     public GameObject[] enemyPrefab;
     PlayerSpawner playerSpawner;
+    PoolManager poolManager;
 
     [SerializeField]
     private GameObject enemyHPSliderPrefab;     //적 체력 프리팹
@@ -33,6 +34,7 @@ public class WaveSpawner : MonoBehaviour
     void Start()
     {
         playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
+        poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>(); ;
         StartCoroutine(SpawnEnemy());
     }
 
@@ -53,7 +55,7 @@ public class WaveSpawner : MonoBehaviour
             UIManager.Instance.wavetext.text = "WAVE : " + waveText;
             
             StartCoroutine(SpawnEnemy());
-            //StartCoroutine(playerSpawner.SpawnPlayer());
+            StartCoroutine(playerSpawner.SpawnPlayer());
             waveEnd = 10;
         }
         UIManager.Instance.waveTime.text = "Time : " + (int)waveEnd;
@@ -62,16 +64,22 @@ public class WaveSpawner : MonoBehaviour
     IEnumerator SpawnEnemy()
     {
         int index = Random.Range(0, 3);
-        for (int i=0;i<enemyCount;i++)
+        for (int i = 0; i < enemyCount; i++)
         {
-            GameObject clone = Instantiate(enemyPrefab[index]);
-            Enemy enemy = clone.GetComponent<Enemy>();
+            //GameObject clone = enemyPrefab[index];
+            //Enemy enemy = clone.GetComponent<Enemy>();
 
-            //Instantiate(enemyPrefab[index], enemyPrefab[index].transform.position, transform.rotation);
+            GameObject obj = poolManager.Get(index);
+            Enemy enemy = obj.GetComponent<Enemy>();
+
+            if (obj != null)
+            {
+                obj.SetActive(true);
+            }
             
             enemyList.Add(enemy);
 
-            SpawnEnemyHPSlider(clone);
+            SpawnEnemyHPSlider(obj);
             yield return new WaitForSeconds(0.6f);
         }
     }
@@ -83,10 +91,11 @@ public class WaveSpawner : MonoBehaviour
         UIManager.Instance.waveGold.text = "Gold : " + playerGold.CurrentGold;
 
         enemyList.Remove(enemy);
-        Destroy(enemy.gameObject);
+        //Destroy(enemy.gameObject);
+        enemy.gameObject.SetActive(false);
     }
 
-    void SpawnEnemyHPSlider(GameObject enemy)
+    public void SpawnEnemyHPSlider(GameObject enemy)
     {
         //적 체력을 나타내는 Slider UI 생성
         GameObject sliderClone = Instantiate(enemyHPSliderPrefab);

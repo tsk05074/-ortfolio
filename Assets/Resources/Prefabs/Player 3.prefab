@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4754009698144702266}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,9 +42,11 @@ GameObject:
   - component: {fileID: 5997514869057047290}
   - component: {fileID: 5997514869057047293}
   - component: {fileID: -1110229118365789042}
+  - component: {fileID: 7207127704009716348}
   - component: {fileID: -2089369227781276230}
   - component: {fileID: -6718326149857830065}
-  m_Layer: 0
+  - component: {fileID: -1613128870885335071}
+  m_Layer: 9
   m_Name: Player 3
   m_TagString: Player3
   m_Icon: {fileID: 0}
@@ -131,6 +133,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c8783e22b93684c9aa725e436378fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7207127704009716348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5997514869057047292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58e2bf82a7942340a9cffe2cb9df9ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &-2089369227781276230
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -139,7 +153,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5997514869057047292}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.53125, z: 0.2}
@@ -159,5 +173,23 @@ MonoBehaviour:
   playerTemplate: {fileID: 11400000, guid: 2a6e282710786ee4a8e0a13da2f796ac, type: 2}
   projecttilePrefab: {fileID: 7107894905651220966, guid: 42669da5a7755074490de8a37c29f28f, type: 3}
   spawnPoint: {fileID: 4754009698144702266}
+  attackRate: 0.5
+  attackRange: 2
   maxAttackDamage: 9
   level: 0
+--- !u!54 &-1613128870885335071
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5997514869057047292}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

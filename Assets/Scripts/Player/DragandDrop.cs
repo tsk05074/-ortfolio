@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class DragandDrop : MonoBehaviour
 {
     private bool isDragging;
+    private bool mouseButtonReleased;
     private Vector3 currentPosition;
 
     private Camera mainCamera;
@@ -29,6 +30,7 @@ public class DragandDrop : MonoBehaviour
     public void OnMouseUp()
     {
         isDragging = false;
+        mouseButtonReleased = true;
 
         ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100.0f, mask))
@@ -39,7 +41,7 @@ public class DragandDrop : MonoBehaviour
             }
             else
             {
-                transform.position = currentPosition;
+                //transform.position = currentPosition;
             }
         }
     }
@@ -89,6 +91,33 @@ public class DragandDrop : MonoBehaviour
         {
             UIManager.Instance.OffPanel();
         }
-     
     }
+
+    private void OnTriggerStay(Collider collision)
+    {
+        string thisGameobjectName;
+        string collisionGameobjectName;
+
+        if (collision.CompareTag("Player3") && isDragging)
+        {
+            Debug.Log("충돌완료");
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/3"), collision.gameObject.transform.position, Quaternion.identity);
+            //Instantiate(obj,transform.position,Quaternion.identity);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        /*
+        thisGameobjectName = gameObject.name.Substring(0, name.Length);
+        collisionGameobjectName = collision.gameObject.name.Substring(0, name.Length);
+
+        if (mouseButtonRelease && thisGameobjectName == "Player 3" && thisGameobjectName == collisionGameobjectName)
+        {
+            Instantiate(Resources.Load("Sprites/Player/3"), transform.position, Quaternion.identity);
+            mouseButtonRelease = false;
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        */
+    }
+
 }

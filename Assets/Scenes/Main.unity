@@ -5525,6 +5525,58 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2556606222296318097, guid: c57354ea4c146634db8c239bbba31892, type: 3}
   m_PrefabInstance: {fileID: 1199220762}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1210628540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1210628541}
+  - component: {fileID: 1210628542}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1210628541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210628540}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1210628542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210628540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c1f057f725c7324a9d3c273ab268672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - prefab: {fileID: 5646374759001046520, guid: 4184d830e1dbae245a5add27817561bc, type: 3}
+    amount: 40
+  - prefab: {fileID: 4203618607599092917, guid: 9e61aefbb0fe4a94fa7d8492bc6495dc, type: 3}
+    amount: 40
+  - prefab: {fileID: 4200041584704291594, guid: 49a4d61560df5a94494d743012b0be64, type: 3}
+    amount: 40
+  pooledItems: []
 --- !u!1 &1214400484
 GameObject:
   m_ObjectHideFlags: 0
@@ -5782,7 +5834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6731170341324298665, guid: c57354ea4c146634db8c239bbba31892, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -6662,9 +6714,9 @@ MonoBehaviour:
   - {fileID: 5646374759001046520, guid: 4184d830e1dbae245a5add27817561bc, type: 3}
   enemyHPSliderPrefab: {fileID: 8513909371897261720, guid: bc7d6deaa9ef7874994e5700d046a299, type: 3}
   canvasTransform: {fileID: 2114405764}
-  enemyCount: 1
+  enemyCount: 20
   waveCount: 100
-  waveEnd: 10
+  waveEnd: 30
   waveText: 1
   playerGold: {fileID: 1587963380}
 --- !u!1001 &1427090117
@@ -7452,8 +7504,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab:
-  - {fileID: 5509537720574767333, guid: 1f3c0e5f45043c7408e3d62a90b1d864, type: 3}
-  - {fileID: 3773565635836519970, guid: 619695229f890794c96a69129279acfd, type: 3}
+  - {fileID: 5997514869057047292, guid: 9e65700abf3e36e4d8e036fc6e759a3b, type: 3}
+  - {fileID: 5997514869057047292, guid: 9e65700abf3e36e4d8e036fc6e759a3b, type: 3}
   - {fileID: 5997514869057047292, guid: 9e65700abf3e36e4d8e036fc6e759a3b, type: 3}
   playerZone:
   - {fileID: 1268549242}
