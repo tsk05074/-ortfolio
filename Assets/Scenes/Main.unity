@@ -5780,6 +5780,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: playerTile
       objectReference: {fileID: 0}
+    - target: {fileID: 6731170341324298665, guid: c57354ea4c146634db8c239bbba31892, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c57354ea4c146634db8c239bbba31892, type: 3}

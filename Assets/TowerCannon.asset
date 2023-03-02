@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f271f16b994a4047976c4f234192f1a, type: 3}
   m_Name: TowerCannon
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 5997514869057047292, guid: 9e65700abf3e36e4d8e036fc6e759a3b, type: 3}
   weapon:
   - sprite: {fileID: 21300000, guid: 025ec63a1e98f9549b3bed5d5086a69a, type: 3}
     damage: 1

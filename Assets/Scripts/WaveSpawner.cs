@@ -53,7 +53,7 @@ public class WaveSpawner : MonoBehaviour
             UIManager.Instance.wavetext.text = "WAVE : " + waveText;
             
             StartCoroutine(SpawnEnemy());
-            StartCoroutine(playerSpawner.SpawnPlayer());
+            //StartCoroutine(playerSpawner.SpawnPlayer());
             waveEnd = 10;
         }
         UIManager.Instance.waveTime.text = "Time : " + (int)waveEnd;

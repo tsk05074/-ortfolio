@@ -156,8 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47daced0f6eb924aba3062991610f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTemplate: {fileID: 11400000, guid: 2a6e282710786ee4a8e0a13da2f796ac, type: 2}
   projecttilePrefab: {fileID: 7107894905651220966, guid: 42669da5a7755074490de8a37c29f28f, type: 3}
   spawnPoint: {fileID: 4754009698144702266}
-  attackRate: 0.5
-  attackRange: 2
-  attackDamage: 1
+  maxAttackDamage: 9
+  level: 0

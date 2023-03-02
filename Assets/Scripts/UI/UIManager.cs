@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     PlayerGold playerGold;
     //Weapon weapon;
     public Weapon currentPlayer;
+    private PlayerTemplate playerTemplate;  //플레이어 정보
 
     public TextMeshProUGUI wavetext;
     public TextMeshProUGUI waveTime;
@@ -114,7 +115,7 @@ public class UIManager : MonoBehaviour
       
 
         //타워 오브젝트 주변에 표시되는 타워 공격범위 Sprite On
-        playerAttackRange.OnAttackRange(currentPlayer.transform.position, currentPlayer.Range);
+        playerAttackRange.OnAttackRange(currentPlayer.transform.position, currentPlayer.attackRange);
         playerAttackRange.AttackRangePosition(currentPlayer.transform.position);
     }
 
@@ -125,9 +126,9 @@ public class UIManager : MonoBehaviour
 
     private void UpdatePlayerData()
     {
-        textDamage.text = "Damage :" + currentPlayer.Damage;
-        textRange.text = "Range : " + currentPlayer.Range;
-        textRate.text = "Rate : " + currentPlayer.Rate;
+        textDamage.text = "Damage :" + Weapon.attackDamage;
+        textRange.text = "Range : " + currentPlayer.attackRange;
+        textRate.text = "Rate : " + currentPlayer.attackRate;
     }
 
 
@@ -159,19 +160,17 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    /*
     public void UpgradeWeapon(string obj)
     {
         if (obj.ToString() == "흔함")
         {
-
-            currentPlayer.attackDamage++;
-            if (currentPlayer.attackDamage > currentPlayer.maxAttackDamage)
+            Weapon.attackDamage++;
+            textDamage.text = "Damage :" + Weapon.attackDamage;
+            if (Weapon.attackDamage > currentPlayer.maxAttackDamage)
             {
                 UIManager.Instance.upgradeButton1.SetActive(false);
             }
         }
     }
-    */
 
 }
