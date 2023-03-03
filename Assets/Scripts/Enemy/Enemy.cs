@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     private Transform target;
     private int wavepointIndex = 0;
     WaveSpawner wavespawner;
+    public GameObject sliderHP;
 
     [SerializeField]
     private int gold = 10; //Àû »ç¸Á ½Ã È¹µæ °¡´ÉÇÑ °ñµå
@@ -46,6 +47,7 @@ public class Enemy : MonoBehaviour
 
     public void OnDie()
     {
-        wavespawner.Destroyenemy(this, gold);
+        wavespawner.Destroyenemy(this, gold, sliderHP);
     }
+
 }

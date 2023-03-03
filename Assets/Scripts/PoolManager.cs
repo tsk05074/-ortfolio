@@ -2,128 +2,157 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Pooltem
-{
-    public GameObject prefab;
-    public int amount;
-}
+
+//[System.Serializable]
+//public class Pooltem
+//{
+//    public GameObject prefab;
+//    public int amount;
+//}
+//[System.Serializable]
+//public class SliderItem
+//{
+//    public GameObject prefab;
+//    public int amount;
+//}
+
 public class PoolManager : MonoBehaviour
 {
-    public static PoolManager singleton;
-    public List<Pooltem> items;
-    public List<GameObject> pooledItems;
+    public static PoolManager instance = null;
 
-    WaveSpawner waveSpawner;
+    //public List<Pooltem> items;
+    //public List<SliderItem> sliderItems;
 
+    //public List<GameObject> pooledItems;
+    //public List<GameObject> SliderHPs;
+
+    //WaveSpawner waveSpawner;
+
+    //public Transform canvasTransform;  //ui를 표현하는 canvas 오브젝트의 transform
 
     private void Awake()
     {
-        singleton = this;
-    }
-
-    private void Start()
-    {
-        pooledItems = new List<GameObject>();
-        foreach (Pooltem item in items)
+        if (null == instance)
         {
-            for (int i = 0; i < item.amount; i++)
-            {
-                GameObject obj = Instantiate(item.prefab);
-                obj.SetActive(false);
-                pooledItems.Add(obj);
-
-                //waveSpawner.EnemyList.Add(enemy);
-                //waveSpawner.SpawnEnemyHPSlider(obj);
-            }
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
 
-    public GameObject Get(int index)
+    public static PoolManager Instance
     {
-        GameObject select = null;
-
-        for (int i = 0; i < pooledItems.Count; i++)
+        get
         {
-            if (!pooledItems[i].activeInHierarchy)
+            if (null == instance)
             {
-                select = pooledItems[i];
+                return null;
+            }
+            return instance;
+        }
+    }
 
-              
+    //private void Start()
+    //{
+    //    pooledItems = new List<GameObject>();
+    //    SliderHPs = new List<GameObject>();
 
-                return pooledItems[i];
+    //    foreach (Pooltem item in items)
+    //    {
+    //        for (int i = 0; i < item.amount; i++)
+    //        {
+    //            GameObject obj = Instantiate(item.prefab);
+    //            obj.SetActive(false);
+    //            pooledItems.Add(obj);
+
+    //            //waveSpawner.EnemyList.Add(enemy);
+    //            //waveSpawner.SpawnEnemyHPSlider(obj);
+    //        }
+    //    }
+
+    //    foreach (SliderItem item in sliderItems)
+    //    {
+    //        for (int i = item.amount; i <= item.amount; i++)
+    //        {
+    //            GameObject obj = Instantiate(item.prefab);
+    //            //obj.transform.SetParent(canvasTransform);
+    //            //obj.transform.localScale = Vector3.one;
+    //            obj.SetActive(false);
+    //            SliderHPs.Add(obj);
+
+    //            //waveSpawner.EnemyList.Add(enemy);
+    //            //waveSpawner.SpawnEnemyHPSlider(obj);
+    //        }
+    //    }
+    //}
+
+    //public GameObject Get()
+    //{
+    //    int index = 0;
+    //    for (int i = 0; i < pooledItems.Count; i++)
+    //    {
+    //        index++;
+    //        if (!pooledItems[index].activeInHierarchy)
+    //        {
+    //            return pooledItems[index];
+    //        }
+
+    //        if (index == pooledItems.Count)
+    //        {
+    //            index = 0;
+    //        }
+    //    }
+    //    return null;
+    //}
+
+    //public GameObject SliderGet()
+    //{
+    //    for (int i = 0; i < SliderHPs.Count; i++)
+    //    {
+    //        if (!SliderHPs[i].activeInHierarchy)
+    //        {
+    //            return SliderHPs[i];
+    //        }
+    //    }
+    //    return null;
+    //}
+
+    [SerializeField]
+    private GameObject[] objectPrefabs;
+
+    private List<GameObject> pooledObjects = new List<GameObject>();
+
+    public GameObject Get(string type)
+    {
+        foreach (GameObject go in pooledObjects)
+        {
+            if (go.name == type && !go.activeInHierarchy)
+            {
+                go.SetActive(true);
+                return go;
+            } 
+        }
+
+        for (int i=0; i< objectPrefabs.Length; i++)
+        {
+            if (objectPrefabs[i].name == type)
+            {
+                GameObject newObject = Instantiate(objectPrefabs[i]);
+                newObject.name = type;
+                pooledObjects.Add(newObject);
+                return newObject;
             }
         }
-        //Enemy enemy = pooledItems[index].GetComponent<Enemy>();
-
-        //waveSpawner.EnemyList.Add(enemy);
-        //waveSpawner.SpawnEnemyHPSlider(pooledItems[index]);
-
-        //if (!select)
-        //{
-        //    select = Instantiate(pooledItems[index], transform);
-        //    Enemy enemy = select.GetComponent<Enemy>();
-
-        //    waveSpawner.EnemyList.Add(enemy);
-        //    waveSpawner.SpawnEnemyHPSlider(select);
-        //    //pooledItems[index].Add(select);
-        //}
 
         return null;
     }
 
-    
-
-    /*
-    //프리팹들을 보관할 변수
-    public GameObject[] prefabs;
-    WaveSpawner waveSpawner;
-
-    //풀 담당을 하는 리스트들
-    List<GameObject>[] pools;
-
-    private void Awake()
+    public void ReleaseObject(GameObject gameObject)
     {
-        pools = new List<GameObject>[prefabs.Length];
-
-        for (int index = 0; index < pools.Length; index++)
-        {
-            pools[index] = new List<GameObject>();
-        }
+        gameObject.SetActive(false);
     }
-
-    private void Start()
-    {
-        waveSpawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
-    }
-
-    public GameObject Get(int index)
-    {
-        GameObject select = null;
-
-        foreach (GameObject enemy in pools[index])
-        {
-            if (!enemy.activeSelf)
-            {
-                select = enemy;
-                enemy.SetActive(true);
-                break;
-            }
-        }
-
-        if (!select)
-        {
-            select = Instantiate(prefabs[index], transform);
-            Enemy enemy = select.GetComponent<Enemy>();
-
-            waveSpawner.EnemyList.Add(enemy);
-            waveSpawner.SpawnEnemyHPSlider(select);
-            pools[index].Add(select);
-        }
-
-        return select;
-    }
-    */
-
 
 }

@@ -56,6 +56,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     public GameObject upgradeButton4;
 
+    [Header("GameOverUI")]
+    public GameObject gameOverUI;
+
 
     private void Awake()
     {

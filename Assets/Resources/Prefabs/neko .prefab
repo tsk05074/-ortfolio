@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  sliderHP: {fileID: 8513909371897261720, guid: bc7d6deaa9ef7874994e5700d046a299, type: 3}
   gold: 10
 --- !u!114 &-3028993047528381344
 MonoBehaviour:

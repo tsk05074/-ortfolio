@@ -8,7 +8,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField]
     public GameObject[] enemyPrefab;
     PlayerSpawner playerSpawner;
-    PoolManager poolManager;
+    //PoolManager poolManager;
 
     [SerializeField]
     private GameObject enemyHPSliderPrefab;     //Àû Ã¼·Â ÇÁ¸®ÆÕ
@@ -22,6 +22,9 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField]
     private PlayerGold playerGold;
 
+    int index = 0;
+
+
     private List<Enemy> enemyList;
     public List<Enemy> EnemyList => enemyList;
 
@@ -34,7 +37,7 @@ public class WaveSpawner : MonoBehaviour
     void Start()
     {
         playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
-        poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>(); ;
+        //poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>(); ;
         StartCoroutine(SpawnEnemy());
     }
 
@@ -43,7 +46,7 @@ public class WaveSpawner : MonoBehaviour
         WaveEnemy();
 
         UIManager.Instance.waveCount.text = "Count : " + enemyList.Count;
-
+        GameManager.Instance.enemyList = this.enemyList.Count;
     }
 
     public void WaveEnemy()
@@ -63,36 +66,47 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        int index = Random.Range(0, 3);
+        Debug.Log("½ºÆù µÆÀ½");
         for (int i = 0; i < enemyCount; i++)
         {
-            //GameObject clone = enemyPrefab[index];
-            //Enemy enemy = clone.GetComponent<Enemy>();
+            GameObject clone = Instantiate(enemyPrefab[index], new Vector3(-8,6,0), Quaternion.identity);
+            Enemy enemy = clone.GetComponent<Enemy>();
+            enemyList.Add(enemy);
+            SpawnEnemyHPSlider(clone);
 
-            GameObject obj = poolManager.Get(index);
-            Enemy enemy = obj.GetComponent<Enemy>();
+            //GameObject obj = poolManager.Get(enemyPrefab[index].name);
+            //Enemy enemy = obj.GetComponent<Enemy>();
 
+            /*
             if (obj != null)
             {
                 obj.SetActive(true);
+                enemyList.Add(enemy);
+                SpawnEnemyHPSlider(obj);
             }
-            
-            enemyList.Add(enemy);
+            */
 
-            SpawnEnemyHPSlider(obj);
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(1.2f);
         }
+        if (index != 3)
+        {
+            index++;
+        }
+        else
+        {
+            index = 0;
+        }
+
     }
 
-    public void Destroyenemy(Enemy enemy, int gold)
+    public void Destroyenemy(Enemy enemy, int gold, GameObject sliderHP)
     {
-        Debug.Log("Á×¾î¾ßÇÔ");
         playerGold.CurrentGold += gold;
         UIManager.Instance.waveGold.text = "Gold : " + playerGold.CurrentGold;
 
         enemyList.Remove(enemy);
-        //Destroy(enemy.gameObject);
-        enemy.gameObject.SetActive(false);
+        Destroy(enemy.gameObject);
+        //Destroy(sliderHP.gameObject);
     }
 
     public void SpawnEnemyHPSlider(GameObject enemy)
