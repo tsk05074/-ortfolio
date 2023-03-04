@@ -19,12 +19,13 @@ public class PlayerSpawner : MonoBehaviour
     {
         //PlayerSpawner playerspawner = gameObject.GetComponent<PlayerSpawner>();
         enemySpawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
-        StartCoroutine("SpawnPlayer");
+        //StartCoroutine("SpawnPlayer");
 
     }
 
     public IEnumerator SpawnPlayer()
     {
+        Debug.Log("플레이어 스폰");
         yield return new WaitForSeconds(0.1f);
 
         for (int i = 0; i < playerCount; i++)

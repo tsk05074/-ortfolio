@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     //Weapon weapon;
     public Weapon currentPlayer;
     private PlayerTemplate playerTemplate;  //플레이어 정보
+    EnemyHP enemyhp;
 
     public TextMeshProUGUI wavetext;
     public TextMeshProUGUI waveTime;
@@ -59,6 +60,11 @@ public class UIManager : MonoBehaviour
     [Header("GameOverUI")]
     public GameObject gameOverUI;
 
+    [Header("GameLevelUI")]
+    public GameObject gameLevelUI;
+    public GameObject gameEasyUI;
+    public GameObject gameNormalUI;
+    public GameObject gameHardUI;
 
     private void Awake()
     {
@@ -94,6 +100,7 @@ public class UIManager : MonoBehaviour
     {
         wavespawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
         playerGold = GameObject.Find("PlayerSpawner").GetComponent<PlayerGold>();
+        enemyhp = GetComponent<EnemyHP>();
         wavetext.text = "WAVE : " + wavespawner.waveText;
         waveTime.text = "Time : " + wavespawner.waveEnd;
         waveCount.text = "Count : " + wavespawner.EnemyList.Count;
@@ -174,6 +181,36 @@ public class UIManager : MonoBehaviour
                 UIManager.Instance.upgradeButton1.SetActive(false);
             }
         }
+    }
+
+    public void LevelButton(GameObject obj)
+    {
+        StartCoroutine(GameManager.Instance.GameStart());
+
+        if (obj.name == "Easy")
+        {
+            Debug.Log("이지 버튼 누름");
+            GameManager.Instance.isEasy = true;
+            GameManager.Instance.isNormal = false;
+            GameManager.Instance.isHard = false;
+
+        }
+        else if (obj.name == "Normal")
+        {
+            GameManager.Instance.isEasy = false;
+            GameManager.Instance.isNormal = true;
+            GameManager.Instance.isHard = false;
+
+        }
+        else if(obj.name == "Hard")
+        {
+            GameManager.Instance.isEasy = false;
+            GameManager.Instance.isNormal = false;
+            GameManager.Instance.isHard = true;
+                    }
+
+        gameLevelUI.SetActive(false);
+
     }
 
 }

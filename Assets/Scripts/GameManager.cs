@@ -7,14 +7,26 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
-    public float timeScale;
+
+    private UIManager uiMG;
+    public WaveSpawner waveSpawnMG;
+    private PlayerSpawner playerSpawnMG;
+    public EnemyHP enemyHPMG;
+
     public int enemyList;
     [SerializeField]
     private int gameEndEnemy = 70;
 
+    public float timeScale;
+
+    public bool isGameStart = false;
+    public bool isEasy;
+    public bool isNormal;
+    public bool isHard;
+
     private void Awake()
     {
-        Time.timeScale = 1.0f;
+        Time.timeScale = timeScale;
 
         if (null == instance)
         {
@@ -41,12 +53,29 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        playerSpawnMG = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
+        uiMG = GetComponent<UIManager>();
+        waveSpawnMG = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
+        //enemyHPMG = GameObject.Find("EnemyHP").GetComponent<EnemyHP>();
     }
 
     void Update()
     {
         GameEnd();
+    }
+
+    public IEnumerator GameStart()
+    {
+        isGameStart = true;
+       
+        Time.timeScale = 1.0f;
+
+
+        StartCoroutine(playerSpawnMG.SpawnPlayer());
+        StartCoroutine(waveSpawnMG.SpawnEnemy());
+
+        yield return null;
+
     }
 
     void GameEnd()

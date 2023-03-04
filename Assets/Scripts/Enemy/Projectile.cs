@@ -37,5 +37,6 @@ public class Projectile : MonoBehaviour
 
         collision.GetComponent<EnemyHP>().TakeDamage(damage);
         Destroy(this.gameObject);
+    
     }
 }

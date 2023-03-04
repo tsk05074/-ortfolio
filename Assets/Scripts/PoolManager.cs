@@ -120,39 +120,32 @@ public class PoolManager : MonoBehaviour
     //    return null;
     //}
 
-    [SerializeField]
-    private GameObject[] objectPrefabs;
-
     private List<GameObject> pooledObjects = new List<GameObject>();
+    private int amountToPool = 20;
 
-    public GameObject Get(string type)
+    [SerializeField] private GameObject projectTilePrefab;
+
+    private void Start()
     {
-        foreach (GameObject go in pooledObjects)
+        for (int i=0;i< amountToPool; i++)
         {
-            if (go.name == type && !go.activeInHierarchy)
-            {
-                go.SetActive(true);
-                return go;
-            } 
+            GameObject obj = Instantiate(projectTilePrefab);
+            //obj.transform.parent = this.transform;
+            obj.SetActive(false);
+            pooledObjects.Add(obj);
         }
+    }
 
-        for (int i=0; i< objectPrefabs.Length; i++)
+    public GameObject GetPooledObject()
+    {
+        for (int i=0; i < pooledObjects.Count; i++)
         {
-            if (objectPrefabs[i].name == type)
+            if (!pooledObjects[i].activeInHierarchy)
             {
-                GameObject newObject = Instantiate(objectPrefabs[i]);
-                newObject.name = type;
-                pooledObjects.Add(newObject);
-                return newObject;
+                return pooledObjects[i];
             }
         }
 
         return null;
     }
-
-    public void ReleaseObject(GameObject gameObject)
-    {
-        gameObject.SetActive(false);
-    }
-
 }

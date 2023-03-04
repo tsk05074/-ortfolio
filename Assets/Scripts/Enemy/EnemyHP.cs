@@ -5,20 +5,25 @@ using UnityEngine;
 public class EnemyHP : MonoBehaviour
 {
     [SerializeField]
-    private float maxHP;    //최대 체력
-    private float currentHP;    //현재 체력
+    public float maxHP;    //최대 체력
+    public float currentHP;    //현재 체력
     private bool isDie = false;
     private Enemy enemy;
     private SpriteRenderer spriteRenderer;
 
-    public float MaxHP => maxHP;
-    public float CurrentHP => currentHP;
+    //public float MaxHP => maxHP;
+    //public float CurrentHP => currentHP;
 
     private void Awake()
     {
-        currentHP = maxHP;
         enemy = GetComponent<Enemy>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void Setup(float enemyHP)
+    {
+        this.maxHP = enemyHP;
+        currentHP = maxHP;
     }
 
     public void TakeDamage(float damage)

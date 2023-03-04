@@ -17,13 +17,13 @@ public class WaveSpawner : MonoBehaviour
 
     public int enemyCount = 20;
     public int waveCount = 1;
-    public float waveEnd = 10;
+    public float waveEnd = 40;
     public int waveText = 1;
     [SerializeField]
     private PlayerGold playerGold;
 
     int index = 0;
-
+    bool isSpawn = false;
 
     private List<Enemy> enemyList;
     public List<Enemy> EnemyList => enemyList;
@@ -38,12 +38,12 @@ public class WaveSpawner : MonoBehaviour
     {
         playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
         //poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>(); ;
-        StartCoroutine(SpawnEnemy());
     }
 
     void Update()
     {
         WaveEnemy();
+        //StartCoroutine(SpawnEnemy());
 
         UIManager.Instance.waveCount.text = "Count : " + enemyList.Count;
         GameManager.Instance.enemyList = this.enemyList.Count;
@@ -51,52 +51,76 @@ public class WaveSpawner : MonoBehaviour
 
     public void WaveEnemy()
     {
-        waveEnd -= Time.deltaTime;
-        if (waveEnd <= 0)
+        if (GameManager.Instance.isGameStart)
         {
-            waveText++;
-            UIManager.Instance.wavetext.text = "WAVE : " + waveText;
-            
-            StartCoroutine(SpawnEnemy());
-            StartCoroutine(playerSpawner.SpawnPlayer());
-            waveEnd = 10;
-        }
-        UIManager.Instance.waveTime.text = "Time : " + (int)waveEnd;
+            //StartCoroutine(SpawnEnemy());
+            waveEnd -= Time.deltaTime;
+            if (waveEnd <= 0)
+            {
+                waveText++;
+                UIManager.Instance.wavetext.text = "WAVE : " + waveText;
+
+                //StartCoroutine(SpawnEnemy());
+                StartCoroutine(playerSpawner.SpawnPlayer());
+                waveEnd = 40;
+            }
+            UIManager.Instance.waveTime.text = "Time : " + (int)waveEnd;
+        }        
     }
 
-    IEnumerator SpawnEnemy()
+    public IEnumerator SpawnEnemy()
     {
-        Debug.Log("스폰 됐음");
+        yield return new WaitForSeconds(0.1f);
+
+
         for (int i = 0; i < enemyCount; i++)
-        {
-            GameObject clone = Instantiate(enemyPrefab[index], new Vector3(-8,6,0), Quaternion.identity);
-            Enemy enemy = clone.GetComponent<Enemy>();
-            enemyList.Add(enemy);
-            SpawnEnemyHPSlider(clone);
-
-            //GameObject obj = poolManager.Get(enemyPrefab[index].name);
-            //Enemy enemy = obj.GetComponent<Enemy>();
-
-            /*
-            if (obj != null)
             {
-                obj.SetActive(true);
-                enemyList.Add(enemy);
-                SpawnEnemyHPSlider(obj);
+
+                GameObject clone = Instantiate(enemyPrefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
+                Enemy enemy = clone.GetComponent<Enemy>();
+                EnemyHP enemyhp = clone.GetComponent<EnemyHP>();
+            if (GameManager.Instance.isEasy)
+            {
+                enemyhp.Setup(5);
             }
-            */
+            else if (GameManager.Instance.isNormal)
+            {
+                Debug.Log("노말 선택");
+                enemyhp.Setup(10);
+            }
+            else if (GameManager.Instance.isHard)
+            {
+                enemyhp.Setup(15);
+            }
+            enemyList.Add(enemy);
+                SpawnEnemyHPSlider(clone);
 
-            yield return new WaitForSeconds(1.2f);
-        }
-        if (index != 3)
-        {
-            index++;
-        }
-        else
-        {
-            index = 0;
-        }
+                //GameObject obj = poolManager.Get(enemyPrefab[index].name);
+                //Enemy enemy = obj.GetComponent<Enemy>();
 
+                /*
+                if (obj != null)
+                {
+                    obj.SetActive(true);
+                    enemyList.Add(enemy);
+                    SpawnEnemyHPSlider(obj);
+                }
+                */
+
+                yield return new WaitForSeconds(1.0f);
+            }
+            if (index != 3)
+            {
+                index++;
+                isSpawn = false;
+            }
+            else
+            {
+                index = 0;
+                isSpawn = false;
+            }
+
+        
     }
 
     public void Destroyenemy(Enemy enemy, int gold, GameObject sliderHP)
