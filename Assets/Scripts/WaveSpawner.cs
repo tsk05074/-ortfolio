@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour
 {
-    [SerializeField]
-    public GameObject[] enemyPrefab;
     PlayerSpawner playerSpawner;
+    [SerializeField]
+    private EnemyTemplate enemyTemplate;
+    [SerializeField]
+    private EnemyTemplate enemyBossTemplate;
     //PoolManager poolManager;
 
     [SerializeField]
@@ -17,8 +19,12 @@ public class WaveSpawner : MonoBehaviour
 
     public int enemyCount = 20;
     public int waveCount = 1;
-    public float waveEnd = 40;
+    public float waveEnd = 30;
     public int waveText = 1;
+    public float waveCheck = 1f;
+
+    [SerializeField]
+    private int enemyHP = 5;
     [SerializeField]
     private PlayerGold playerGold;
 
@@ -32,6 +38,9 @@ public class WaveSpawner : MonoBehaviour
     {
         //적 리스트 메모리 할당
         enemyList = new List<Enemy>();
+
+        enemyTemplate.maxHp = 5;
+        enemyBossTemplate.maxHp = 100;
     }
 
     void Start()
@@ -43,7 +52,6 @@ public class WaveSpawner : MonoBehaviour
     void Update()
     {
         WaveEnemy();
-        //StartCoroutine(SpawnEnemy());
 
         UIManager.Instance.waveCount.text = "Count : " + enemyList.Count;
         GameManager.Instance.enemyList = this.enemyList.Count;
@@ -51,76 +59,90 @@ public class WaveSpawner : MonoBehaviour
 
     public void WaveEnemy()
     {
-        if (GameManager.Instance.isGameStart)
+        waveEnd -= Time.deltaTime;
+        if (waveEnd <= 0)
         {
-            //StartCoroutine(SpawnEnemy());
-            waveEnd -= Time.deltaTime;
-            if (waveEnd <= 0)
-            {
-                waveText++;
-                UIManager.Instance.wavetext.text = "WAVE : " + waveText;
-
-                //StartCoroutine(SpawnEnemy());
-                StartCoroutine(playerSpawner.SpawnPlayer());
-                waveEnd = 40;
-            }
-            UIManager.Instance.waveTime.text = "Time : " + (int)waveEnd;
-        }        
+            waveText++;
+            UIManager.Instance.wavetext.text = "WAVE : " + waveText;
+            waveEnd = 40;
+            StartCoroutine(playerSpawner.SpawnPlayer());
+            waveCheck++;
+        }
+        UIManager.Instance.waveTime.text = "Time : " + (int)waveEnd;
     }
 
     public IEnumerator SpawnEnemy()
     {
-        yield return new WaitForSeconds(0.1f);
-
-
-        for (int i = 0; i < enemyCount; i++)
+        while (true)
+        {
+            for (int i = 0; i < enemyCount; i++)
             {
-
-                GameObject clone = Instantiate(enemyPrefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
+                //GameObject clone = Instantiate(enemyPrefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
+                GameObject clone = Instantiate(enemyTemplate.enemyprefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
                 Enemy enemy = clone.GetComponent<Enemy>();
                 EnemyHP enemyhp = clone.GetComponent<EnemyHP>();
-            if (GameManager.Instance.isEasy)
-            {
-                enemyhp.Setup(5);
-            }
-            else if (GameManager.Instance.isNormal)
-            {
-                Debug.Log("노말 선택");
-                enemyhp.Setup(10);
-            }
-            else if (GameManager.Instance.isHard)
-            {
-                enemyhp.Setup(15);
-            }
-            enemyList.Add(enemy);
-                SpawnEnemyHPSlider(clone);
-
-                //GameObject obj = poolManager.Get(enemyPrefab[index].name);
-                //Enemy enemy = obj.GetComponent<Enemy>();
-
-                /*
-                if (obj != null)
+                if (GameManager.Instance.isEasy)
                 {
-                    obj.SetActive(true);
-                    enemyList.Add(enemy);
-                    SpawnEnemyHPSlider(obj);
+                    enemyhp.Setup(enemyTemplate.maxHp);
+
                 }
-                */
+                else if (GameManager.Instance.isNormal)
+                {
+                    enemyhp.Setup(enemyTemplate.maxHp * 2);
+                }
+                else if (GameManager.Instance.isHard)
+                {
+                    enemyhp.Setup(enemyTemplate.maxHp * 3);
+                }
+                enemyList.Add(enemy);
+                SpawnEnemyHPSlider(clone);
 
                 yield return new WaitForSeconds(1.0f);
             }
-            if (index != 3)
+            
+            enemyTemplate.maxHp += 2;
+
+            if (index < 2)
             {
                 index++;
                 isSpawn = false;
             }
-            else
+            else if (index >= 2)
             {
                 index = 0;
                 isSpawn = false;
             }
+            yield return new WaitForSeconds(10.0f);
 
-        
+            if (waveCheck%5 ==0)
+            {
+                for (int i = 0; i < 1; i++)
+                {
+                    GameObject boss = Instantiate(enemyBossTemplate.bossprefab, new Vector3(-8, 6, 0), Quaternion.identity);
+                    Enemy bossenemy = boss.GetComponent<Enemy>();
+                    EnemyHP bossenemyhp = boss.GetComponent<EnemyHP>();
+
+                    if (GameManager.Instance.isEasy)
+                    {
+                        bossenemyhp.Setup(enemyBossTemplate.maxHp);
+
+                    }
+                    else if (GameManager.Instance.isNormal)
+                    {
+                        bossenemyhp.Setup(enemyBossTemplate.maxHp * 2);
+                    }
+                    else if (GameManager.Instance.isHard)
+                    {
+                        bossenemyhp.Setup(enemyBossTemplate.maxHp * 3);
+                    }
+
+                    enemyList.Add(bossenemy);
+                    SpawnEnemyHPSlider(boss);
+                }
+            }
+            
+        }
+
     }
 
     public void Destroyenemy(Enemy enemy, int gold, GameObject sliderHP)

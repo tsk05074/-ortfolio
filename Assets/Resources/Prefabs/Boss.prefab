@@ -12,12 +12,11 @@ GameObject:
   - component: {fileID: 4453630170309820855}
   - component: {fileID: 3346600411472613668}
   - component: {fileID: -3028993047528381344}
+  - component: {fileID: 2757527051793261302}
   - component: {fileID: 5522643246286175937}
-  - component: {fileID: -859681981122066226}
-  - component: {fileID: -2854046736604981064}
   m_Layer: 0
-  m_Name: 'neko '
-  m_TagString: Enemy3
+  m_Name: Boss
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 914499792, guid: cfe6fc80dd3f3a54ab7ae1291971f3e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df0af195125ff4f4b89ad32e096b52e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -101,10 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3511cf31b922c4c9b905c2b826e800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 3
   sliderHP: {fileID: 8513909371897261720, guid: bc7d6deaa9ef7874994e5700d046a299, type: 3}
-  enemytemplate: {fileID: 11400000, guid: c680203fe1f89ee46863fb428068c3d2, type: 2}
-  gold: 10
+  enemytemplate: {fileID: 11400000, guid: 6f735ac640a3ee34b9c225689a88facc, type: 2}
+  gold: 100
 --- !u!114 &-3028993047528381344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,9 +116,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7ea690d0ca59e4da464b6ae716e31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 5
+  maxHP: 50
   currentHP: 0
-  enemytemplate: {fileID: 11400000, guid: c680203fe1f89ee46863fb428068c3d2, type: 2}
+  enemytemplate: {fileID: 11400000, guid: 6f735ac640a3ee34b9c225689a88facc, type: 2}
+--- !u!61 &2757527051793261302
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5646374759001046520}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.21439242}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 1.5, y: 1.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1.0712152}
+  m_EdgeRadius: 0
 --- !u!95 &5522643246286175937
 Animator:
   serializedVersion: 4
@@ -130,7 +155,7 @@ Animator:
   m_GameObject: {fileID: 5646374759001046520}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a87f72618f8a5414bb48c9a8f51dd3ec, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -140,32 +165,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &-859681981122066226
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646374759001046520}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.46875, y: 0.625, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &-2854046736604981064
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646374759001046520}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0

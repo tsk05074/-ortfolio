@@ -11,6 +11,9 @@ public class EnemyHP : MonoBehaviour
     private Enemy enemy;
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField]
+    EnemyTemplate enemytemplate;
+
     //public float MaxHP => maxHP;
     //public float CurrentHP => currentHP;
 
@@ -24,6 +27,8 @@ public class EnemyHP : MonoBehaviour
     {
         this.maxHP = enemyHP;
         currentHP = maxHP;
+        enemytemplate.maxHp = enemyHP;
+        //enemytemplate.currentHP = enemytemplate.maxHp;
     }
 
     public void TakeDamage(float damage)

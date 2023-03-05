@@ -23,8 +23,12 @@ public class DragandDrop : MonoBehaviour
 
     public void OnMouseDown()
     {
-        isDragging = true;
-        currentPosition = transform.position;
+        if (gameObject.CompareTag("Player1") || gameObject.CompareTag("Player2") || gameObject.CompareTag("Player3"))
+        {
+            isDragging = true;
+            currentPosition = transform.position;
+        }
+       
     }
 
     public void OnMouseUp()
@@ -81,10 +85,20 @@ public class DragandDrop : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (hit.transform.CompareTag("Player3"))
+                if (hit.transform.CompareTag("Player3") || hit.transform.CompareTag("Player2") || hit.transform.CompareTag("Player1"))
                 {
-                    UIManager.Instance.OnPnanel(hit.transform);
+                    bool isplayer = true;
+
+                    UIManager.Instance.OnPnanel(hit.transform, isplayer);
                 }
+                //else if (hit.transform.CompareTag("Enemy1") || hit.transform.CompareTag("Enemy2") || hit.transform.CompareTag("Enemy3"))
+                //{
+                //    Debug.Log("에너미 클릭함");
+
+                //    bool isplayer = false;
+                //    UIManager.Instance.OnPnanel(hit.transform, isplayer);
+
+                //}
             }
         }
         else if (Input.GetMouseButtonUp(0))

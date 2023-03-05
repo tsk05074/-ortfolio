@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     //Weapon weapon;
     public Weapon currentPlayer;
     private PlayerTemplate playerTemplate;  //플레이어 정보
-    EnemyHP enemyhp;
+    public EnemyHP enemyhp;
 
     public TextMeshProUGUI wavetext;
     public TextMeshProUGUI waveTime;
@@ -31,11 +31,16 @@ public class UIManager : MonoBehaviour
     private PlayerAttackRange playerAttackRange;
 
     [SerializeField]
+    private TextMeshProUGUI textHP;
+    [SerializeField]
+    private TextMeshProUGUI textSpeed;
+
+    [SerializeField]
     private GameObject palyerInfo;
 
     public bool IsplayerInfo;
 
-    [Header("CanvasInfo")]
+    [Header("PlayerCanvasInfo")]
     [SerializeField]
     private GameObject information;
     [SerializeField]
@@ -46,6 +51,19 @@ public class UIManager : MonoBehaviour
     private GameObject upgrade;
     [SerializeField]
     private GameObject combination;
+
+    [Header("EnemyCanvasInfo")]
+    [SerializeField]
+    private Image imageEnemy;
+    [SerializeField]
+    private GameObject enemyInfo;
+    [SerializeField]
+    private GameObject enemyInfoObj;
+    [SerializeField]
+    private GameObject enemyHP;
+    [SerializeField]
+    private GameObject enemySpeed;
+
 
     [Header("UpgradeButton")]
     [SerializeField]
@@ -62,9 +80,18 @@ public class UIManager : MonoBehaviour
 
     [Header("GameLevelUI")]
     public GameObject gameLevelUI;
-    public GameObject gameEasyUI;
-    public GameObject gameNormalUI;
-    public GameObject gameHardUI;
+
+    PlayerTemplate player3;
+    PlayerTemplate player2;
+    PlayerTemplate player1;
+
+    [SerializeField]
+    EnemyTemplate enemytemplate;
+
+    Image thisimg;
+    public Sprite player3_img;
+    public Sprite player2_img;
+    public Sprite player1_img;
 
     private void Awake()
     {
@@ -105,24 +132,64 @@ public class UIManager : MonoBehaviour
         waveTime.text = "Time : " + wavespawner.waveEnd;
         waveCount.text = "Count : " + wavespawner.EnemyList.Count;
         waveGold.text = "Gold : " + playerGold.CurrentGold;
+
+        thisimg = GetComponent<Image>();
     }
 
-    public void OnPnanel(Transform playerWeapon)
+    public void OnPnanel(Transform playerWeapon, bool isplayer)
     {
        
         //출력해야하는 타워 정보를 받아와서 저장
         currentPlayer = playerWeapon.GetComponent<Weapon>();
 
-        if (IsplayerInfo)
+        if (IsplayerInfo && isplayer)
         {
             playerInfo.SetActive(true);
-
             palyerInfo.gameObject.SetActive(true);
+            enemyInfo.gameObject.SetActive(false);
+
+            if (playerWeapon.CompareTag("Player3"))
+            {
+                imagePlayer.sprite = player3_img;
+            }
+            else if (playerWeapon.CompareTag("Player2"))
+            {
+                imagePlayer.sprite = player2_img;
+
+            }
+            else if (playerWeapon.CompareTag("Player1"))
+            {
+                imagePlayer.sprite = player1_img;
+            }
 
             //타워 정보 갱신
-            UpdatePlayerData();
+            UpdatePlayerData(imagePlayer, currentPlayer);
         }
-      
+        //else if (IsplayerInfo && !isplayer)
+        //{
+        //    playerInfo.SetActive(true);
+        //    palyerInfo.gameObject.SetActive(false);
+        //    enemyInfo.gameObject.SetActive(true);
+
+        //    if (playerWeapon.CompareTag("Enemy1"))
+        //    {
+        //        imageEnemy.sprite = enemytemplate.img[0];
+        //    }
+        //    else if (playerWeapon.CompareTag("Enemy2"))
+        //    {
+        //        imageEnemy.sprite = enemytemplate.img[1];
+
+        //    }
+        //    else if (playerWeapon.CompareTag("Enemy3"))
+        //    {
+        //        imageEnemy.sprite = enemytemplate.img[2];
+        //    }
+
+
+        //    //타워 정보 갱신
+        //    UpdateEnemyData(imageEnemy, playerWeapon);
+        //}
+
 
         //타워 오브젝트 주변에 표시되는 타워 공격범위 Sprite On
         playerAttackRange.OnAttackRange(currentPlayer.transform.position, currentPlayer.attackRange);
@@ -134,8 +201,32 @@ public class UIManager : MonoBehaviour
         playerAttackRange.OffAttackRange();
     }
 
-    private void UpdatePlayerData()
+    //public void UpdateEnemyData(Image img, Transform playerWeapon)
+    //{
+    //    if (playerWeapon.CompareTag("Enemy1"))
+    //    {
+    //        //playerWeapon.GetComponent<EnemyTemplate>().currentHP;
+    //        imageEnemy = img;
+    //        textRange.text = "HP : " + enemyhp.currentHP;
+    //        textRate.text = "Speed : " + enemyhp.currentHP;
+    //    }
+    //    else if (playerWeapon.CompareTag("Enemy2"))
+    //    {
+    //        imageEnemy = img;
+    //        textRange.text = "HP : " + playerWeapon.GetComponent<EnemyTemplate>().currentHP;
+    //        textRate.text = "Speed : " + playerWeapon.GetComponent<EnemyTemplate>().speed;
+    //    }
+    //    else if (playerWeapon.CompareTag("Enemy3"))
+    //    {
+    //        imageEnemy = img;
+    //        textRange.text = "HP : " + playerWeapon.GetComponent<EnemyTemplate>().currentHP;
+    //        textRate.text = "Speed : " + playerWeapon.GetComponent<EnemyTemplate>().speed;
+    //    }
+    //}
+
+    private void UpdatePlayerData(Image img, Weapon weapon)
     {
+        imagePlayer = img;
         textDamage.text = "Damage :" + Weapon.attackDamage;
         textRange.text = "Range : " + currentPlayer.attackRange;
         textRate.text = "Rate : " + currentPlayer.attackRate;
@@ -207,7 +298,7 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.isEasy = false;
             GameManager.Instance.isNormal = false;
             GameManager.Instance.isHard = true;
-                    }
+        }
 
         gameLevelUI.SetActive(false);
 

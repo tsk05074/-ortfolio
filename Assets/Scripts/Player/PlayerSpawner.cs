@@ -10,10 +10,8 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField]
     private WaveSpawner enemySpawner;
 
-    private void Awake()
-    {
-
-    }
+    [SerializeField]
+    private PlayerTemplate[] playerTemplate;
 
     void Start()
     {
@@ -25,8 +23,7 @@ public class PlayerSpawner : MonoBehaviour
 
     public IEnumerator SpawnPlayer()
     {
-        Debug.Log("플레이어 스폰");
-        yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(0.1f);
 
         for (int i = 0; i < playerCount; i++)
         {
@@ -35,7 +32,8 @@ public class PlayerSpawner : MonoBehaviour
 
             if (playerZone[zoneIndex].transform.childCount == 0)
             {
-                var zoneObj = Instantiate(playerPrefab[index], playerZone[zoneIndex].transform.position, playerZone[zoneIndex].transform.rotation);
+                //var zoneObj = Instantiate(playerPrefab[index], playerZone[zoneIndex].transform.position, playerZone[zoneIndex].transform.rotation);
+                var zoneObj = Instantiate(playerTemplate[index].playerprefab, playerZone[zoneIndex].transform.position, playerZone[zoneIndex].transform.rotation);
                 zoneObj.transform.parent = playerZone[zoneIndex].transform;
                 zoneObj.GetComponent<Weapon>().Setup(enemySpawner);
             }

@@ -5,15 +5,13 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerTemplate : ScriptableObject
 {
-    public GameObject playerPrefab;
-    public Weapon[] weapon;
+    public new string name;
 
-    [System.Serializable]
-    public enum Weapon
-    {
-        sprite,
-        damage,
-        rate,
-        range
-    }
+    public GameObject playerprefab;
+
+    public Sprite img;
+    public float attackRate;
+    public float attackRange;
+    public int attackDamage;
+
 }

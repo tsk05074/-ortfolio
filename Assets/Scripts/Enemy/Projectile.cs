@@ -28,15 +28,18 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
 
-        if (!collision.CompareTag("Enemy")) return;     //적이 아닌 대상과 부딪히면
+        if (!collision.CompareTag("Enemy1") && !collision.CompareTag("Enemy2") && !collision.CompareTag("Enemy3"))
+        {
+            return;
+        }
+        
         if (collision.transform != target) return; //현재 target인 적이 아닐 때
 
         collision.GetComponent<EnemyHP>().TakeDamage(damage);
+
         Destroy(this.gameObject);
-    
     }
 }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74989dc87a3e3843976ee68c0fca40e, type: 3}
+  m_Name: EnemyTemplate
+  m_EditorClassIdentifier: 
+  name: Enemys
+  enemyprefab:
+  - {fileID: 4200041584704291594, guid: 49a4d61560df5a94494d743012b0be64, type: 3}
+  - {fileID: 4203618607599092917, guid: 9e61aefbb0fe4a94fa7d8492bc6495dc, type: 3}
+  - {fileID: 5646374759001046520, guid: 4184d830e1dbae245a5add27817561bc, type: 3}
+  img:
+  - {fileID: 596681558, guid: 1d7fcd684b17bfb4798238a7851890d1, type: 3}
+  - {fileID: -1982131517, guid: 946b955b45a18af4e86904e5cc038b2a, type: 3}
+  - {fileID: 914499792, guid: cfe6fc80dd3f3a54ab7ae1291971f3e2, type: 3}
+  maxHp: 5
+  currentHP: 0

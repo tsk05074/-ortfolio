@@ -10,14 +10,21 @@ public class Enemy : MonoBehaviour
     private int wavepointIndex = 0;
     WaveSpawner wavespawner;
     public GameObject sliderHP;
+    [SerializeField]
+    EnemyTemplate enemytemplate;
+
+    private SpriteRenderer sRenderer;
 
     [SerializeField]
     private int gold = 10; //Àû »ç¸Á ½Ã È¹µæ °¡´ÉÇÑ °ñµå
 
     void Start()
     {
+        enemytemplate.speed = speed;
         target = WayPoints.points[0];
         wavespawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
+        sRenderer = GetComponent<SpriteRenderer>();
+        sRenderer.flipX = false;
     }
 
     void Update()
@@ -28,11 +35,13 @@ public class Enemy : MonoBehaviour
         if (Vector3.Distance(transform.position, target.position) <= 0.2f)
         {
             GetNextWayPoint();
+
         }
     }
 
     void GetNextWayPoint()
     {
+        Debug.Log(wavepointIndex);
         if (wavepointIndex >= WayPoints.points.Length -1)
         {
             wavepointIndex = 0;
@@ -43,6 +52,17 @@ public class Enemy : MonoBehaviour
             wavepointIndex++;
             target = WayPoints.points[wavepointIndex];
         }
+
+        if (wavepointIndex >= 2)
+        {
+            sRenderer.flipX = true;
+        }
+        else if(wavepointIndex < 2)
+        {
+            sRenderer.flipX = false;
+        }
+
+
     }
 
     public void OnDie()

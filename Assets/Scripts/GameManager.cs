@@ -70,11 +70,11 @@ public class GameManager : MonoBehaviour
        
         Time.timeScale = 1.0f;
 
-
+        yield return new WaitForSeconds(0.1f);
         StartCoroutine(playerSpawnMG.SpawnPlayer());
         StartCoroutine(waveSpawnMG.SpawnEnemy());
 
-        yield return null;
+        //yield return null;
 
     }
 

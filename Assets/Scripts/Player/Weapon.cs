@@ -19,9 +19,10 @@ public class Weapon : MonoBehaviour
 
     public float attackRate = 0.5f; //공격 속도
     public float attackRange = 2.0f;
-
     public static int attackDamage = 1;
     public int maxAttackDamage = 9;
+
+    public PlayerTemplate playerTemplate;
 
     bool isAttack;
 
@@ -32,13 +33,6 @@ public class Weapon : MonoBehaviour
 
     WaveSpawner enemySpawner;
     public int level = 0;
-    //public float Damage => attackDamage;
-    //public float Rate => attackRate;
-    //public float Range => attackRange;
-    //public float Damage => playerTemplate.weapon[level].damage;
-    //public float Rate => playerTemplate.weapon[level].rate;
-    //public float Range => playerTemplate.weapon[level].range;
-
     
     void Start()
     {
@@ -76,20 +70,6 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            //float closestDistSqr = Mathf.Infinity;
-
-            //for (int i = 0; i < enemySpawner.EnemyList.Count; ++i)
-            //{
-
-            //    float distance = Vector3.Distance(enemySpawner.EnemyList[i].transform.position, transform.position);
-            //    현재 검사중인 적과의 거리가 공격범위 내에 있고, 현재까지 검사한 적보다 거리가 가까우면
-            //    if (distance <= attackRange && distance <= closestDistSqr)
-            //    {
-
-            //        closestDistSqr = distance;
-            //        attackTarget = enemySpawner.EnemyList[i].transform;
-            //    }
-            //}
 
             attackTarget = FindClosestAttackTarget();
 
@@ -115,23 +95,6 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            ////target이 있는지 검사
-            //if (attackTarget == null)
-            //{
-            //    ChangeState(WeaponState.SearchTarget);
-            //    break;
-            //}
-
-            ////target이 공격 범위 안에 있는지 검사(공격 범위를 벗어나면 새로운 적 탐색)
-            //float distance = Vector3.Distance(attackTarget.position, transform.position);
-            //if (distance > attackRange)
-            //{
-            //    animator.SetBool("isAttack", false);
-
-            //    attackTarget = null;
-            //    ChangeState(WeaponState.SearchTarget);
-            //    break;
-            //}
             if (IsPossibleToAttackTarget() == false)
             {
                 ChangeState(WeaponState.SearchTarget);
@@ -175,7 +138,7 @@ public class Weapon : MonoBehaviour
         {
             float distance = Vector3.Distance(enemySpawner.EnemyList[i].transform.position, transform.position);
 
-            if (distance <= attackRange && distance <= closestDistSqr)
+            if (distance <= playerTemplate.attackRange && distance <= closestDistSqr)
             {
                 closestDistSqr = distance;
                 attackTarget = enemySpawner.EnemyList[i].transform;
@@ -193,8 +156,10 @@ public class Weapon : MonoBehaviour
         }
 
         float distance = Vector3.Distance(attackTarget.position, transform.position);
-        if (distance > attackRange)
+        if (distance > playerTemplate.attackRange)
         {
+            animator.SetBool("isAttack", false);
+
             attackTarget = null;
             return false;
         }
@@ -205,15 +170,7 @@ public class Weapon : MonoBehaviour
     void SpawnProjectTile()
     {
         GameObject clone = Instantiate(projecttilePrefab, spawnPoint.position, Quaternion.identity);
-        clone.GetComponent<Projectile>().Setup(attackTarget, attackDamage);
-        //GameObject clone = PoolManager.instance.GetPooledObject();
+        clone.GetComponent<Projectile>().Setup(attackTarget, playerTemplate.attackDamage);
 
-        //if (clone != null)
-        //{
-        //    clone.transform.position = spawnPoint.position;
-        //    clone.SetActive(true);
-        //    clone.GetComponent<Projectile>().Setup(attackTarget, attackDamage);
-
-        //}
     }
 }
