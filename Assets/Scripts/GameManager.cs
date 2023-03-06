@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        SoundeManager.Instance.PlayBGM("TitleBGM");
+
         playerSpawnMG = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
         uiMG = GetComponent<UIManager>();
         waveSpawnMG = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
@@ -89,6 +92,7 @@ public class GameManager : MonoBehaviour
 
     public void GameReStart(string str)
     {
+        SoundeManager.Instance.PlaySFX("ClickSFX");
         SceneManager.LoadScene(str);
     }
 }

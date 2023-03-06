@@ -93,6 +93,8 @@ public class UIManager : MonoBehaviour
     public Sprite player2_img;
     public Sprite player1_img;
 
+   
+
     private void Awake()
     {
         information.SetActive(false);
@@ -125,6 +127,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+
         wavespawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
         playerGold = GameObject.Find("PlayerSpawner").GetComponent<PlayerGold>();
         enemyhp = GetComponent<EnemyHP>();
@@ -138,7 +141,6 @@ public class UIManager : MonoBehaviour
 
     public void OnPnanel(Transform playerWeapon, bool isplayer)
     {
-       
         //출력해야하는 타워 정보를 받아와서 저장
         currentPlayer = playerWeapon.GetComponent<Weapon>();
 
@@ -259,23 +261,32 @@ public class UIManager : MonoBehaviour
         {
             combination.SetActive(true);
         }
+
+        SoundeManager.Instance.PlaySFX("ClickSfx");
+
     }
 
     public void UpgradeWeapon(string obj)
     {
-        if (obj.ToString() == "흔함")
+        SoundeManager.Instance.PlaySFX("ClickSfx");
+
+        if (obj.ToString() == "흔함" && playerGold.CurrentGold >= 50)
         {
             Weapon.attackDamage++;
+            Debug.Log("attackDamage" + Weapon.attackDamage);
             textDamage.text = "Damage :" + Weapon.attackDamage;
             if (Weapon.attackDamage > currentPlayer.maxAttackDamage)
             {
                 UIManager.Instance.upgradeButton1.SetActive(false);
             }
         }
+
     }
 
     public void LevelButton(GameObject obj)
     {
+        SoundeManager.Instance.PlaySFX("ClickSfx");
+
         StartCoroutine(GameManager.Instance.GameStart());
 
         if (obj.name == "Easy")

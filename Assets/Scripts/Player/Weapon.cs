@@ -170,7 +170,7 @@ public class Weapon : MonoBehaviour
     void SpawnProjectTile()
     {
         GameObject clone = Instantiate(projecttilePrefab, spawnPoint.position, Quaternion.identity);
-        clone.GetComponent<Projectile>().Setup(attackTarget, playerTemplate.attackDamage);
+        clone.GetComponent<Projectile>().Setup(attackTarget, attackDamage);
 
     }
 }

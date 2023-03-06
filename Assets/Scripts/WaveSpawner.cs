@@ -116,6 +116,8 @@ public class WaveSpawner : MonoBehaviour
 
             if (waveCheck%5 ==0)
             {
+                SoundeManager.Instance.PlaySFX("MonsterSpawnSFX");
+
                 for (int i = 0; i < 1; i++)
                 {
                     GameObject boss = Instantiate(enemyBossTemplate.bossprefab, new Vector3(-8, 6, 0), Quaternion.identity);
@@ -149,6 +151,7 @@ public class WaveSpawner : MonoBehaviour
     {
         playerGold.CurrentGold += gold;
         UIManager.Instance.waveGold.text = "Gold : " + playerGold.CurrentGold;
+        SoundeManager.Instance.PlaySFX("MonsterDie");
 
         enemyList.Remove(enemy);
         Destroy(enemy.gameObject);
