@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -77,9 +78,14 @@ public class UIManager : MonoBehaviour
 
     [Header("GameOverUI")]
     public GameObject gameOverUI;
+    public GameObject gameClearUI;
 
     [Header("GameLevelUI")]
     public GameObject gameLevelUI;
+
+    [Header("GameCombiUI")]
+    public Button xConbiButton;
+    public RectTransform combiTransform;
 
     PlayerTemplate player3;
     PlayerTemplate player2;
@@ -127,7 +133,6 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-
         wavespawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
         playerGold = GameObject.Find("PlayerSpawner").GetComponent<PlayerGold>();
         enemyhp = GetComponent<EnemyHP>();
@@ -163,6 +168,7 @@ public class UIManager : MonoBehaviour
             {
                 imagePlayer.sprite = player1_img;
             }
+
 
             //타워 정보 갱신
             UpdatePlayerData(imagePlayer, currentPlayer);
@@ -225,6 +231,18 @@ public class UIManager : MonoBehaviour
     //        textRate.text = "Speed : " + playerWeapon.GetComponent<EnemyTemplate>().speed;
     //    }
     //}
+    public void CombiFadeIn()
+    {
+        combination.SetActive(true);
+        combiTransform.transform.localPosition = new Vector3(0f, -1000f, 0f);
+        combiTransform.DOAnchorPos(new Vector2(0f, 0f), 0.5f, false).SetEase(Ease.OutElastic);
+    }
+
+    public void CombiFadeOut()
+    {
+        combiTransform.transform.localPosition = new Vector3(0f, -0f, 0f);
+        combiTransform.DOAnchorPos(new Vector2(0f, -1000f), 0.5f, false).SetEase(Ease.InOutQuint);
+    }
 
     private void UpdatePlayerData(Image img, Weapon weapon)
     {
@@ -261,6 +279,10 @@ public class UIManager : MonoBehaviour
         {
             combination.SetActive(true);
         }
+        else if(obj.ToString() == "X")
+        {
+            combination.SetActive(false);
+        }
 
         SoundeManager.Instance.PlaySFX("ClickSfx");
 
@@ -273,7 +295,6 @@ public class UIManager : MonoBehaviour
         if (obj.ToString() == "흔함" && playerGold.CurrentGold >= 50)
         {
             Weapon.attackDamage++;
-            Debug.Log("attackDamage" + Weapon.attackDamage);
             textDamage.text = "Damage :" + Weapon.attackDamage;
             if (Weapon.attackDamage > currentPlayer.maxAttackDamage)
             {

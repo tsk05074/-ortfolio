@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -59,90 +60,98 @@ public class WaveSpawner : MonoBehaviour
 
     public void WaveEnemy()
     {
-        waveEnd -= Time.deltaTime;
-        if (waveEnd <= 0)
+        if (GameManager.Instance.isGameStart)
         {
-            waveText++;
-            UIManager.Instance.wavetext.text = "WAVE : " + waveText;
-            waveEnd = 40;
-            StartCoroutine(playerSpawner.SpawnPlayer());
-            waveCheck++;
+            waveEnd -= Time.deltaTime;
+            if (waveEnd <= 0)
+            {
+                waveText++;
+                UIManager.Instance.wavetext.text = "WAVE : " + waveText;
+                waveEnd = 40;
+                StartCoroutine(playerSpawner.SpawnPlayer());
+                waveCheck++;
+            }
+            UIManager.Instance.waveTime.text = "Time : " + (int)waveEnd;
         }
-        UIManager.Instance.waveTime.text = "Time : " + (int)waveEnd;
+       
     }
 
     public IEnumerator SpawnEnemy()
     {
         while (true)
         {
-            for (int i = 0; i < enemyCount; i++)
+            if (GameManager.Instance.isGameStart)
             {
-                //GameObject clone = Instantiate(enemyPrefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
-                GameObject clone = Instantiate(enemyTemplate.enemyprefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
-                Enemy enemy = clone.GetComponent<Enemy>();
-                EnemyHP enemyhp = clone.GetComponent<EnemyHP>();
-                if (GameManager.Instance.isEasy)
+                for (int i = 0; i < enemyCount; i++)
                 {
-                    enemyhp.Setup(enemyTemplate.maxHp);
-
-                }
-                else if (GameManager.Instance.isNormal)
-                {
-                    enemyhp.Setup(enemyTemplate.maxHp * 2);
-                }
-                else if (GameManager.Instance.isHard)
-                {
-                    enemyhp.Setup(enemyTemplate.maxHp * 3);
-                }
-                enemyList.Add(enemy);
-                SpawnEnemyHPSlider(clone);
-
-                yield return new WaitForSeconds(1.0f);
-            }
-            
-            enemyTemplate.maxHp += 2;
-
-            if (index < 2)
-            {
-                index++;
-                isSpawn = false;
-            }
-            else if (index >= 2)
-            {
-                index = 0;
-                isSpawn = false;
-            }
-            yield return new WaitForSeconds(10.0f);
-
-            if (waveCheck%5 ==0)
-            {
-                SoundeManager.Instance.PlaySFX("MonsterSpawnSFX");
-
-                for (int i = 0; i < 1; i++)
-                {
-                    GameObject boss = Instantiate(enemyBossTemplate.bossprefab, new Vector3(-8, 6, 0), Quaternion.identity);
-                    Enemy bossenemy = boss.GetComponent<Enemy>();
-                    EnemyHP bossenemyhp = boss.GetComponent<EnemyHP>();
-
+                    //GameObject clone = Instantiate(enemyPrefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
+                    GameObject clone = Instantiate(enemyTemplate.enemyprefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
+                    Enemy enemy = clone.GetComponent<Enemy>();
+                    EnemyHP enemyhp = clone.GetComponent<EnemyHP>();
                     if (GameManager.Instance.isEasy)
                     {
-                        bossenemyhp.Setup(enemyBossTemplate.maxHp);
+                        enemyhp.Setup(enemyTemplate.maxHp);
 
                     }
                     else if (GameManager.Instance.isNormal)
                     {
-                        bossenemyhp.Setup(enemyBossTemplate.maxHp * 2);
+                        enemyhp.Setup(enemyTemplate.maxHp * 2);
                     }
                     else if (GameManager.Instance.isHard)
                     {
-                        bossenemyhp.Setup(enemyBossTemplate.maxHp * 3);
+                        enemyhp.Setup(enemyTemplate.maxHp * 3);
                     }
+                    enemyList.Add(enemy);
+                    SpawnEnemyHPSlider(clone);
 
-                    enemyList.Add(bossenemy);
-                    SpawnEnemyHPSlider(boss);
+                    yield return new WaitForSeconds(1.0f);
                 }
-            }
+
+                enemyTemplate.maxHp += 2;
+
+                if (index < 2)
+                {
+                    index++;
+                    isSpawn = false;
+                }
+                else if (index >= 2)
+                {
+                    index = 0;
+                    isSpawn = false;
+                }
+                yield return new WaitForSeconds(10.0f);
+
+                if (waveCheck % 5 == 0)
+                {
+                    SoundeManager.Instance.PlaySFX("MonsterSpawnSFX");
+
+                    for (int i = 0; i < 1; i++)
+                    {
+                        GameObject boss = Instantiate(enemyBossTemplate.bossprefab, new Vector3(-8, 6, 0), Quaternion.identity);
+                        Enemy bossenemy = boss.GetComponent<Enemy>();
+                        EnemyHP bossenemyhp = boss.GetComponent<EnemyHP>();
+
+                        if (GameManager.Instance.isEasy)
+                        {
+                            bossenemyhp.Setup(enemyBossTemplate.maxHp);
+
+                        }
+                        else if (GameManager.Instance.isNormal)
+                        {
+                            bossenemyhp.Setup(enemyBossTemplate.maxHp * 2);
+                        }
+                        else if (GameManager.Instance.isHard)
+                        {
+                            bossenemyhp.Setup(enemyBossTemplate.maxHp * 3);
+                        }
+
+                        enemyList.Add(bossenemy);
+                        SpawnEnemyHPSlider(boss);
+                    }
+                }
+
             
+        }
         }
 
     }

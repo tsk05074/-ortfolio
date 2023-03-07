@@ -41,7 +41,6 @@ public class Enemy : MonoBehaviour
 
     void GetNextWayPoint()
     {
-        Debug.Log(wavepointIndex);
         if (wavepointIndex >= WayPoints.points.Length -1)
         {
             wavepointIndex = 0;

@@ -3,22 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class DragandDrop : MonoBehaviour
 {
-    private bool isDragging;
-    private bool mouseButtonReleased;
+    public bool isDragging;
+    public bool mouseButtonReleased;
     private Vector3 currentPosition;
 
     private Camera mainCamera;
     private Ray ray;
     private RaycastHit hit;
 
+    private PlayerSpawner playerSpawner;
+    private WaveSpawner enemySpawner;
+
     int mask = (1 << 8);
 
     private void Awake()
     {
         mainCamera = Camera.main;
+        playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
+        enemySpawner = GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>();
+
     }
 
     public void OnMouseDown()
@@ -45,7 +52,7 @@ public class DragandDrop : MonoBehaviour
             }
             else
             {
-                //transform.position = currentPosition;
+                transform.position = currentPosition;
             }
         }
     }
@@ -105,33 +112,60 @@ public class DragandDrop : MonoBehaviour
         {
             UIManager.Instance.OffPanel();
         }
+      
     }
 
-    private void OnTriggerStay(Collider collision)
+    void OnTriggerStay(Collider collision)
     {
-        string thisGameobjectName;
-        string collisionGameobjectName;
-
-        if (collision.CompareTag("Player3") && isDragging)
+        if (this.gameObject.CompareTag("Player1") && this.gameObject.CompareTag("Player1") == collision.CompareTag("Player1") && !isDragging)
         {
-            Debug.Log("충돌완료");
-            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/3"), collision.gameObject.transform.position, Quaternion.identity);
+            isDragging = false;
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/atk"), transform.position, Quaternion.identity);
+            //obj.transform.SetParent(collision.transform);
+            obj.transform.parent = gameObject.transform.parent;
+            obj.GetComponent<Weapon>().Setup(enemySpawner);
+
+
+            //obj.transform.SetParent(playerSpawner.playerZone.t);
+            //obj.GetComponent<Weapon>().Setup(enemySpawner);
             //Instantiate(obj,transform.position,Quaternion.identity);
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-        }
-        /*
-        thisGameobjectName = gameObject.name.Substring(0, name.Length);
-        collisionGameobjectName = collision.gameObject.name.Substring(0, name.Length);
+            obj.transform.DOShakeScale(1.5f);
 
-        if (mouseButtonRelease && thisGameobjectName == "Player 3" && thisGameobjectName == collisionGameobjectName)
+        }
+        else if (this.gameObject.CompareTag("Player2") && this.gameObject.CompareTag("Player2") == collision.CompareTag("Player2") && !isDragging)
         {
-            Instantiate(Resources.Load("Sprites/Player/3"), transform.position, Quaternion.identity);
-            mouseButtonRelease = false;
+            isDragging = false;
             Destroy(collision.gameObject);
-            Destroy(gameObject);
-        }
-        */
-    }
+            Destroy(this.gameObject);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/atk"), transform.position, Quaternion.identity);
+            //obj.transform.SetParent(collision.transform);
+            obj.transform.parent = gameObject.transform.parent;
+            obj.GetComponent<Weapon>().Setup(enemySpawner);
+            obj.transform.DOShakeScale(1.5f);
 
+            //Instantiate(obj,transform.position,Quaternion.identity);
+
+        }
+        else if (this.gameObject.CompareTag("Player3") && this.gameObject.CompareTag("Player3") == collision.CompareTag("Player3") && !isDragging)
+        {
+            isDragging = false;
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/atk"), transform.position, Quaternion.identity);
+            //obj.transform.SetParent(collision.transform);
+            obj.transform.parent = gameObject.transform.parent;
+            obj.GetComponent<Weapon>().Setup(enemySpawner);
+
+            obj.transform.DOShakeScale(1.5f);
+
+
+            //Instantiate(obj,transform.position,Quaternion.identity);
+        }
+        else
+        {
+        }
+    }
 }
