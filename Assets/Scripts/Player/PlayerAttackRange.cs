@@ -29,6 +29,7 @@ public class PlayerAttackRange : MonoBehaviour
 
     private void Update()
     {
+
         transform.position = UIManager.Instance.currentPlayer.transform.position;
         //AttackRangePosition(UIManager.Instance.currentPlayer.transform.position);
     }

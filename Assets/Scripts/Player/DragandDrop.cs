@@ -30,7 +30,9 @@ public class DragandDrop : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (gameObject.CompareTag("Player1") || gameObject.CompareTag("Player2") || gameObject.CompareTag("Player3"))
+        if (gameObject.CompareTag("Player1") || gameObject.CompareTag("Player2") || gameObject.CompareTag("Player3") ||
+            gameObject.CompareTag("Player4") || gameObject.CompareTag("Player5") || gameObject.CompareTag("Player6") ||
+                gameObject.CompareTag("Player7") || gameObject.CompareTag("Player8") || gameObject.CompareTag("Player9"))
         {
             isDragging = true;
             currentPosition = transform.position;
@@ -92,7 +94,9 @@ public class DragandDrop : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (hit.transform.CompareTag("Player3") || hit.transform.CompareTag("Player2") || hit.transform.CompareTag("Player1"))
+                if (hit.transform.CompareTag("Player3") || hit.transform.CompareTag("Player2") || hit.transform.CompareTag("Player1") || 
+                    hit.transform.CompareTag("Player4") || hit.transform.CompareTag("Player5") || hit.transform.CompareTag("Player6")
+                    || hit.transform.CompareTag("Player7") || hit.transform.CompareTag("Player8") || hit.transform.CompareTag("Player9"))
                 {
                     bool isplayer = true;
 
@@ -122,7 +126,7 @@ public class DragandDrop : MonoBehaviour
             isDragging = false;
             Destroy(collision.gameObject);
             Destroy(this.gameObject);
-            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/atk"), transform.position, Quaternion.identity);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Player 4"), transform.position, Quaternion.identity);
             //obj.transform.SetParent(collision.transform);
             obj.transform.parent = gameObject.transform.parent;
             obj.GetComponent<Weapon>().Setup(enemySpawner);
@@ -139,7 +143,7 @@ public class DragandDrop : MonoBehaviour
             isDragging = false;
             Destroy(collision.gameObject);
             Destroy(this.gameObject);
-            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/atk"), transform.position, Quaternion.identity);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Player 5"), transform.position, Quaternion.identity);
             //obj.transform.SetParent(collision.transform);
             obj.transform.parent = gameObject.transform.parent;
             obj.GetComponent<Weapon>().Setup(enemySpawner);
@@ -154,7 +158,7 @@ public class DragandDrop : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(this.gameObject);
 
-            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/atk"), transform.position, Quaternion.identity);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Player 6"), transform.position, Quaternion.identity);
             //obj.transform.SetParent(collision.transform);
             obj.transform.parent = gameObject.transform.parent;
             obj.GetComponent<Weapon>().Setup(enemySpawner);
@@ -164,8 +168,53 @@ public class DragandDrop : MonoBehaviour
 
             //Instantiate(obj,transform.position,Quaternion.identity);
         }
-        else
+        else if (this.gameObject.CompareTag("Player4") && this.gameObject.CompareTag("Player4") == collision.CompareTag("Player4") && !isDragging)
         {
+            isDragging = false;
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Player 7"), transform.position, Quaternion.identity);
+            //obj.transform.SetParent(collision.transform);
+            obj.transform.parent = gameObject.transform.parent;
+            obj.GetComponent<Weapon>().Setup(enemySpawner);
+
+            obj.transform.DOShakeScale(1.5f);
+
+
+            //Instantiate(obj,transform.position,Quaternion.identity);
+        }
+        else if (this.gameObject.CompareTag("Player5") && this.gameObject.CompareTag("Player5") == collision.CompareTag("Player5") && !isDragging)
+        {
+            isDragging = false;
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Player 8"), transform.position, Quaternion.identity);
+            //obj.transform.SetParent(collision.transform);
+            obj.transform.parent = gameObject.transform.parent;
+            obj.GetComponent<Weapon>().Setup(enemySpawner);
+
+            obj.transform.DOShakeScale(1.5f);
+
+
+            //Instantiate(obj,transform.position,Quaternion.identity);
+        }
+        else if (this.gameObject.CompareTag("Player6") && this.gameObject.CompareTag("Player6") == collision.CompareTag("Player6") && !isDragging)
+        {
+            isDragging = false;
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Player 9"), transform.position, Quaternion.identity);
+            //obj.transform.SetParent(collision.transform);
+            obj.transform.parent = gameObject.transform.parent;
+            obj.GetComponent<Weapon>().Setup(enemySpawner);
+
+            obj.transform.DOShakeScale(1.5f);
+
+
+            //Instantiate(obj,transform.position,Quaternion.identity);
         }
     }
 }

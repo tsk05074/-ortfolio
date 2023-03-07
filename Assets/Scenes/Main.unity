@@ -12386,6 +12386,12 @@ MonoBehaviour:
   player3_img: {fileID: 21300000, guid: 04766944cc60beb4db3944df9335a519, type: 3}
   player2_img: {fileID: 21300000, guid: 219b0c289230d644f9be39ffdf5aa96a, type: 3}
   player1_img: {fileID: 1972654480, guid: cf12c84b7ac82e74ea4af23f23fa7279, type: 3}
+  player4_img: {fileID: 493296160, guid: 08ccabc1b0d85984d904fb3e9401c7c3, type: 3}
+  player5_img: {fileID: 939470051, guid: acf8fa2fde4c430439d32076b211ee31, type: 3}
+  player6_img: {fileID: 222125180, guid: 612936ec3ea7aa848854abaf7205ca31, type: 3}
+  player7_img: {fileID: 517594881, guid: b6ea570c1c559e54f9647f8907f0690a, type: 3}
+  player8_img: {fileID: -1551312491, guid: 6f0ad813235e8204ab8ebebba81d4d8c, type: 3}
+  player9_img: {fileID: -1054773980, guid: 35b1239cd33dd584bbcdb267b922cc6f, type: 3}
 --- !u!1001 &1955952256
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -94,12 +94,19 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     EnemyTemplate enemytemplate;
 
+    [Header("PlayerSprite")]
     Image thisimg;
     public Sprite player3_img;
     public Sprite player2_img;
     public Sprite player1_img;
+    public Sprite player4_img;
+    public Sprite player5_img;
+    public Sprite player6_img;
+    public Sprite player7_img;
+    public Sprite player8_img;
+    public Sprite player9_img;
 
-   
+
 
     private void Awake()
     {
@@ -167,6 +174,30 @@ public class UIManager : MonoBehaviour
             else if (playerWeapon.CompareTag("Player1"))
             {
                 imagePlayer.sprite = player1_img;
+            }
+            else if (playerWeapon.CompareTag("Player4"))
+            {
+                imagePlayer.sprite = player4_img;
+            }
+            else if (playerWeapon.CompareTag("Player5"))
+            {
+                imagePlayer.sprite = player5_img;
+            }
+            else if (playerWeapon.CompareTag("Player6"))
+            {
+                imagePlayer.sprite = player6_img;
+            }
+            else if (playerWeapon.CompareTag("Player7"))
+            {
+                imagePlayer.sprite = player7_img;
+            }
+            else if (playerWeapon.CompareTag("Player8"))
+            {
+                imagePlayer.sprite = player8_img;
+            }
+            else if (playerWeapon.CompareTag("Player9"))
+            {
+                imagePlayer.sprite = player9_img;
             }
 
 

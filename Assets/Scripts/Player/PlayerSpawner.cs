@@ -60,14 +60,17 @@ public class PlayerSpawner : MonoBehaviour
                     var zoneObj = Instantiate(playerTemplate[index].playerprefab, playerZone[zoneIndex].transform.position, playerZone[zoneIndex].transform.rotation);
                     zoneObj.transform.parent = playerZone[zoneIndex].transform;
                     zoneObj.GetComponent<Weapon>().Setup(enemySpawner);
-                    //tileZone.RemoveAt(zoneIndex);
-                    playerCount = 2;
+                    tileZone.RemoveAt(zoneIndex);
                 }
                 else
                 {
-                    playerCount = 1;
-                    Debug.Log("중복값 발생");
-                    continue;
+                    int zoneIndex2 = Random.Range(0, tileZone.Count);
+
+                    var zoneObj = Instantiate(playerTemplate[index].playerprefab, playerZone[zoneIndex2].transform.position, playerZone[zoneIndex2].transform.rotation);
+                    zoneObj.transform.parent = playerZone[zoneIndex2].transform;
+                    zoneObj.GetComponent<Weapon>().Setup(enemySpawner);
+                    tileZone.RemoveAt(zoneIndex);
+
                 }
 
 

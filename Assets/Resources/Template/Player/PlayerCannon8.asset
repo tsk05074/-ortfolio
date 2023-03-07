@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f271f16b994a4047976c4f234192f1a, type: 3}
+  m_Name: PlayerCannon8
+  m_EditorClassIdentifier: 
+  name: Player8
+  playerprefab: {fileID: 5997514869057047292, guid: 725014307c1c81e4a994d1da4a29232f, type: 3}
+  img: {fileID: -1551312491, guid: 6f0ad813235e8204ab8ebebba81d4d8c, type: 3}
+  attackRate: 0.5
+  attackRange: 3
+  attackDamage: 1

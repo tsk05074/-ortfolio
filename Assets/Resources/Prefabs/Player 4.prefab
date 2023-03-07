@@ -47,8 +47,8 @@ GameObject:
   - component: {fileID: -1613128870885335071}
   - component: {fileID: -3833194755263717215}
   m_Layer: 9
-  m_Name: atk
-  m_TagString: Player3
+  m_Name: Player 4
+  m_TagString: Player4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,10 +109,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ff98147eca59de5499af4ed54f4e5045, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 493296160, guid: 08ccabc1b0d85984d904fb3e9401c7c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 0.90625}
@@ -166,7 +166,7 @@ MonoBehaviour:
   attackRate: 0.5
   attackRange: 3
   maxAttackDamage: 9
-  playerTemplate: {fileID: 11400000, guid: 7ebee48f49f1c5845ba992d3989177d5, type: 2}
+  playerTemplate: {fileID: 11400000, guid: 45af6846d7ab022428ebd76f83a78cd3, type: 2}
   level: 0
 --- !u!54 &-1613128870885335071
 Rigidbody:
@@ -194,7 +194,7 @@ Animator:
   m_GameObject: {fileID: 5997514869057047292}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85df37e20b7c4b343a4a4c2b7398ca92, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
