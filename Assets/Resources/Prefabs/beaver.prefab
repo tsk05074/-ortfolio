@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1446564417666527204}
   - component: {fileID: 8322439205651901894}
   - component: {fileID: 4815683999106618789}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beaver
   m_TagString: Enemy1
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   speed: 1
   sliderHP: {fileID: 8513909371897261720, guid: bc7d6deaa9ef7874994e5700d046a299, type: 3}
   enemytemplate: {fileID: 11400000, guid: c680203fe1f89ee46863fb428068c3d2, type: 2}
-  gold: 10
+  gold: 1
 --- !u!114 &-3912698397611370268
 MonoBehaviour:
   m_ObjectHideFlags: 0

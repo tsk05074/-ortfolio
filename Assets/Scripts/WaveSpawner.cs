@@ -22,7 +22,7 @@ public class WaveSpawner : MonoBehaviour
     public int waveCount = 1;
     public float waveEnd = 30;
     public int waveText = 1;
-    public float waveCheck = 1f;
+    public float waveCheck = 0f;
 
     [SerializeField]
     private int enemyHP = 5;
@@ -66,10 +66,12 @@ public class WaveSpawner : MonoBehaviour
             if (waveEnd <= 0)
             {
                 waveText++;
+                waveCheck++;
                 UIManager.Instance.wavetext.text = "WAVE : " + waveText;
                 waveEnd = 40;
+                StartCoroutine(SpawnEnemy());
                 StartCoroutine(playerSpawner.SpawnPlayer());
-                waveCheck++;
+
             }
             UIManager.Instance.waveTime.text = "Time : " + (int)waveEnd;
         }
@@ -78,82 +80,92 @@ public class WaveSpawner : MonoBehaviour
 
     public IEnumerator SpawnEnemy()
     {
-        while (true)
+        if (GameManager.Instance.isGameStart)
         {
-            if (GameManager.Instance.isGameStart)
+            for (int i = 0; i < enemyCount; i++)
             {
-                for (int i = 0; i < enemyCount; i++)
+                //GameObject clone = Instantiate(enemyPrefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
+                GameObject clone = Instantiate(enemyTemplate.enemyprefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
+                Enemy enemy = clone.GetComponent<Enemy>();
+                EnemyHP enemyhp = clone.GetComponent<EnemyHP>();
+                if (GameManager.Instance.isEasy)
                 {
-                    //GameObject clone = Instantiate(enemyPrefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
-                    GameObject clone = Instantiate(enemyTemplate.enemyprefab[index], new Vector3(-8, 6, 0), Quaternion.identity);
-                    Enemy enemy = clone.GetComponent<Enemy>();
-                    EnemyHP enemyhp = clone.GetComponent<EnemyHP>();
+                    enemyhp.Setup(enemyTemplate.maxHp);
+
+                }
+                else if (GameManager.Instance.isNormal)
+                {
+                    enemyhp.Setup(enemyTemplate.maxHp);
+                }
+                else if (GameManager.Instance.isHard)
+                {
+                    enemyhp.Setup(enemyTemplate.maxHp);
+                }
+                enemyList.Add(enemy);
+                SpawnEnemyHPSlider(clone);
+
+                yield return new WaitForSeconds(1.0f);
+            }
+
+            if (waveCheck % 5 == 0)
+            {
+                SoundeManager.Instance.PlaySFX("MonsterSpawnSFX");
+
+                for (int i = 0; i < 1; i++)
+                {
+                    GameObject boss = Instantiate(enemyBossTemplate.bossprefab, new Vector3(-8, 6, 0), Quaternion.identity);
+                    Enemy bossenemy = boss.GetComponent<Enemy>();
+                    EnemyHP bossenemyhp = boss.GetComponent<EnemyHP>();
+
                     if (GameManager.Instance.isEasy)
                     {
-                        enemyhp.Setup(enemyTemplate.maxHp);
+                        bossenemyhp.Setup(enemyTemplate.maxHp);
 
                     }
                     else if (GameManager.Instance.isNormal)
                     {
-                        enemyhp.Setup(enemyTemplate.maxHp * 2);
+                        enemyBossTemplate.maxHp = 300f;
+                        bossenemyhp.Setup(enemyTemplate.maxHp);
                     }
                     else if (GameManager.Instance.isHard)
                     {
-                        enemyhp.Setup(enemyTemplate.maxHp * 3);
+                        enemyBossTemplate.maxHp = 500f;
+                        bossenemyhp.Setup(enemyTemplate.maxHp);
                     }
-                    enemyList.Add(enemy);
-                    SpawnEnemyHPSlider(clone);
 
-                    yield return new WaitForSeconds(1.0f);
+                    enemyList.Add(bossenemy);
+                    SpawnEnemyHPSlider(boss);
                 }
+            }
 
+            if (GameManager.Instance.isEasy)
+            {
                 enemyTemplate.maxHp += 2;
 
-                if (index < 2)
-                {
-                    index++;
-                    isSpawn = false;
-                }
-                else if (index >= 2)
-                {
-                    index = 0;
-                    isSpawn = false;
-                }
-                yield return new WaitForSeconds(10.0f);
+            }
+            else if (GameManager.Instance.isNormal)
+            {
+                enemyTemplate.maxHp += 5;
+            }
+            else if (GameManager.Instance.isHard)
+            {
+                enemyTemplate.maxHp += 7;
+            }
 
-                if (waveCheck % 5 == 0)
-                {
-                    SoundeManager.Instance.PlaySFX("MonsterSpawnSFX");
+            if (index < 2)
+            {
+                index++;
+                isSpawn = false;
+            }
+            else if (index >= 2)
+            {
+                index = 0;
+                isSpawn = false;
+            }
+            yield return new WaitForSeconds(10.0f);
 
-                    for (int i = 0; i < 1; i++)
-                    {
-                        GameObject boss = Instantiate(enemyBossTemplate.bossprefab, new Vector3(-8, 6, 0), Quaternion.identity);
-                        Enemy bossenemy = boss.GetComponent<Enemy>();
-                        EnemyHP bossenemyhp = boss.GetComponent<EnemyHP>();
 
-                        if (GameManager.Instance.isEasy)
-                        {
-                            bossenemyhp.Setup(enemyBossTemplate.maxHp);
-
-                        }
-                        else if (GameManager.Instance.isNormal)
-                        {
-                            bossenemyhp.Setup(enemyBossTemplate.maxHp * 2);
-                        }
-                        else if (GameManager.Instance.isHard)
-                        {
-                            bossenemyhp.Setup(enemyBossTemplate.maxHp * 3);
-                        }
-
-                        enemyList.Add(bossenemy);
-                        SpawnEnemyHPSlider(boss);
-                    }
-                }
-
-            
         }
-        }
-
     }
 
     public void Destroyenemy(Enemy enemy, int gold, GameObject sliderHP)

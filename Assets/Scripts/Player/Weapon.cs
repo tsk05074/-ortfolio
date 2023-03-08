@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponState { SearchTarget = 0, TryAttackCannon, TryAttackSword }
-public enum WeaponType { Cannon = 0, Sword,}
+public enum WeaponType { Cannon = 0,}
+public enum WeaponState { SearchTarget = 0, TryAttackCannon,  }
 
 public class Weapon : MonoBehaviour
 {
@@ -17,9 +17,11 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private GameObject projecttilePrefab;   //발사체 프리팹
 
+
     public float attackRate = 0.5f; //공격 속도
     public float attackRange = 2.0f;
-    public static int attackDamage = 1;
+    //public static int attackDamage = 1;
+    public int attackDamage = 1;
     public int maxAttackDamage = 9;
 
     public PlayerTemplate playerTemplate;
@@ -32,7 +34,6 @@ public class Weapon : MonoBehaviour
     Animator animator;
 
     WaveSpawner enemySpawner;
-    public int level = 0;
     
     void Start()
     {
@@ -79,10 +80,6 @@ public class Weapon : MonoBehaviour
                 {
                     ChangeState(WeaponState.TryAttackCannon);
                 }
-                else if (weaponType == WeaponType.Sword)
-                {
-                    ChangeState(WeaponState.TryAttackSword);
-                }
                 //ChangeState(WeaponState.AttackToTarget);
             }
 
@@ -90,27 +87,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    //private IEnumerator AttackToTarget()
     private IEnumerator TryAttackCannon()
-    {
-        while (true)
-        {
-            if (IsPossibleToAttackTarget() == false)
-            {
-                ChangeState(WeaponState.SearchTarget);
-                break;
-            }
-            //attackRate 시간만큼 대기
-            yield return new WaitForSeconds(attackRate);
-
-            //공격
-            SpawnProjectTile();
-            isAttack = true;
-            animator.SetBool("isAttack", true);
-        }
-    }
-
-    private IEnumerator TryAttackSword()
     {
         while (true)
         {

@@ -84,7 +84,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.625, y: 0.6875}
+  m_Size: {x: 1, y: 0.90625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 7504608456924674740}
   weaponType: 0
-  projecttilePrefab: {fileID: 7107894905651220966, guid: eb4586d35c568eb4ead05e516f7ae125, type: 3}
+  projecttilePrefab: {fileID: 7107894905651220966, guid: 42669da5a7755074490de8a37c29f28f, type: 3}
   attackRate: 1
   attackRange: 2.5
   maxAttackDamage: 9
@@ -171,7 +171,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 90
   m_CollisionDetection: 0
 --- !u!1 &6163739299634495054
 GameObject:

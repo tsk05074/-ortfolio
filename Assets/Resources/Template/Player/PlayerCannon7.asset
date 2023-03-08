@@ -16,5 +16,5 @@ MonoBehaviour:
   playerprefab: {fileID: 5997514869057047292, guid: 3b19ecc28c75f1f4cbde72540b28d347, type: 3}
   img: {fileID: 517594881, guid: b6ea570c1c559e54f9647f8907f0690a, type: 3}
   attackRate: 0.5
-  attackRange: 3
-  attackDamage: 1
+  attackRange: 2
+  attackDamage: 3

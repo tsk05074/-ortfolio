@@ -15,6 +15,6 @@ MonoBehaviour:
   name: Player9
   playerprefab: {fileID: 5997514869057047292, guid: 6fc531c98289ea14db825ca6f94f8fa7, type: 3}
   img: {fileID: -1054773980, guid: 35b1239cd33dd584bbcdb267b922cc6f, type: 3}
-  attackRate: 0.5
+  attackRate: 0.2
   attackRange: 3
-  attackDamage: 1
+  attackDamage: 3

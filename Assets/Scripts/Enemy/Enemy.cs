@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer sRenderer;
 
     [SerializeField]
-    private int gold = 10; //Àû »ç¸Á ½Ã È¹µæ °¡´ÉÇÑ °ñµå
+    private int gold = 2; //Àû »ç¸Á ½Ã È¹µæ °¡´ÉÇÑ °ñµå
 
     void Start()
     {

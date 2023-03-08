@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d74989dc87a3e3843976ee68c0fca40e, type: 3}
   m_Name: Boss Template
   m_EditorClassIdentifier: 
-  name: 
+  name: Boss
   enemyprefab: []
   bossprefab: {fileID: 5646374759001046520, guid: c9935328a716d4d48b9a2256470cc71a, type: 3}
   img: []
   maxHp: 100
   currentHP: 100
-  speed: 5
+  speed: 2

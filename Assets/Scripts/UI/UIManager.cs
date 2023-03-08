@@ -204,32 +204,7 @@ public class UIManager : MonoBehaviour
             //타워 정보 갱신
             UpdatePlayerData(imagePlayer, currentPlayer);
         }
-        //else if (IsplayerInfo && !isplayer)
-        //{
-        //    playerInfo.SetActive(true);
-        //    palyerInfo.gameObject.SetActive(false);
-        //    enemyInfo.gameObject.SetActive(true);
-
-        //    if (playerWeapon.CompareTag("Enemy1"))
-        //    {
-        //        imageEnemy.sprite = enemytemplate.img[0];
-        //    }
-        //    else if (playerWeapon.CompareTag("Enemy2"))
-        //    {
-        //        imageEnemy.sprite = enemytemplate.img[1];
-
-        //    }
-        //    else if (playerWeapon.CompareTag("Enemy3"))
-        //    {
-        //        imageEnemy.sprite = enemytemplate.img[2];
-        //    }
-
-
-        //    //타워 정보 갱신
-        //    UpdateEnemyData(imageEnemy, playerWeapon);
-        //}
-
-
+   
         //타워 오브젝트 주변에 표시되는 타워 공격범위 Sprite On
         playerAttackRange.OnAttackRange(currentPlayer.transform.position, currentPlayer.attackRange);
         playerAttackRange.AttackRangePosition(currentPlayer.transform.position);
@@ -240,28 +215,6 @@ public class UIManager : MonoBehaviour
         playerAttackRange.OffAttackRange();
     }
 
-    //public void UpdateEnemyData(Image img, Transform playerWeapon)
-    //{
-    //    if (playerWeapon.CompareTag("Enemy1"))
-    //    {
-    //        //playerWeapon.GetComponent<EnemyTemplate>().currentHP;
-    //        imageEnemy = img;
-    //        textRange.text = "HP : " + enemyhp.currentHP;
-    //        textRate.text = "Speed : " + enemyhp.currentHP;
-    //    }
-    //    else if (playerWeapon.CompareTag("Enemy2"))
-    //    {
-    //        imageEnemy = img;
-    //        textRange.text = "HP : " + playerWeapon.GetComponent<EnemyTemplate>().currentHP;
-    //        textRate.text = "Speed : " + playerWeapon.GetComponent<EnemyTemplate>().speed;
-    //    }
-    //    else if (playerWeapon.CompareTag("Enemy3"))
-    //    {
-    //        imageEnemy = img;
-    //        textRange.text = "HP : " + playerWeapon.GetComponent<EnemyTemplate>().currentHP;
-    //        textRate.text = "Speed : " + playerWeapon.GetComponent<EnemyTemplate>().speed;
-    //    }
-    //}
     public void CombiFadeIn()
     {
         combination.SetActive(true);
@@ -272,13 +225,13 @@ public class UIManager : MonoBehaviour
     public void CombiFadeOut()
     {
         combiTransform.transform.localPosition = new Vector3(0f, -0f, 0f);
-        combiTransform.DOAnchorPos(new Vector2(0f, -1000f), 0.5f, false).SetEase(Ease.InOutQuint);
+        combiTransform.DOAnchorPos(new Vector2(0f, -1100f), 0.5f, false).SetEase(Ease.InOutQuint);
     }
 
     private void UpdatePlayerData(Image img, Weapon weapon)
     {
         imagePlayer = img;
-        textDamage.text = "Damage :" + Weapon.attackDamage;
+        textDamage.text = "Damage :" + currentPlayer.attackDamage;
         textRange.text = "Range : " + currentPlayer.attackRange;
         textRate.text = "Rate : " + currentPlayer.attackRate;
     }
@@ -321,15 +274,64 @@ public class UIManager : MonoBehaviour
 
     public void UpgradeWeapon(string obj)
     {
-        SoundeManager.Instance.PlaySFX("ClickSfx");
 
-        if (obj.ToString() == "흔함" && playerGold.CurrentGold >= 50)
+        if (obj.ToString() == "이지" && playerGold.CurrentGold >= 2)
         {
-            Weapon.attackDamage++;
-            textDamage.text = "Damage :" + Weapon.attackDamage;
-            if (Weapon.attackDamage > currentPlayer.maxAttackDamage)
+            SoundeManager.Instance.PlaySFX("ClickSfx");
+
+            int gold = 20;
+            //Weapon.attackDamage++;
+           
+            if (currentPlayer.CompareTag("Player1") || currentPlayer.CompareTag("Player2") || currentPlayer.CompareTag("Player3"))
             {
-                UIManager.Instance.upgradeButton1.SetActive(false);
+                currentPlayer.attackDamage++;
+                textDamage.text = "Damage :" + currentPlayer.attackDamage;
+                playerGold.CurrentGold -= gold;
+                waveGold.text = "Gold : " + playerGold.CurrentGold;
+
+                if (currentPlayer.attackDamage > currentPlayer.maxAttackDamage)
+                {
+                    currentPlayer.attackDamage = currentPlayer.maxAttackDamage;
+                }
+            }
+        }
+        if (obj.ToString() == "노멀" && playerGold.CurrentGold >= 4)
+        {
+            SoundeManager.Instance.PlaySFX("ClickSfx");
+
+            int gold = 40;
+
+            if (currentPlayer.CompareTag("Player4") || currentPlayer.CompareTag("Player5") || currentPlayer.CompareTag("Player6"))
+            {
+                currentPlayer.attackDamage++;
+                textDamage.text = "Damage :" + currentPlayer.attackDamage;
+                playerGold.CurrentGold -= gold;
+                waveGold.text = "Gold : " + playerGold.CurrentGold;
+
+                if (currentPlayer.attackDamage > currentPlayer.maxAttackDamage)
+                {
+                    currentPlayer.attackDamage = currentPlayer.maxAttackDamage;
+
+                }
+            }
+        }
+        if (obj.ToString() == "하드" && playerGold.CurrentGold >= 10)
+        {
+            SoundeManager.Instance.PlaySFX("ClickSfx");
+
+            int gold = 60;
+            if (currentPlayer.CompareTag("Player7") || currentPlayer.CompareTag("Player8") || currentPlayer.CompareTag("Player9"))
+            {
+                currentPlayer.attackDamage++;
+                textDamage.text = "Damage :" + currentPlayer.attackDamage;
+                playerGold.CurrentGold -= gold;
+                waveGold.text = "Gold : " + playerGold.CurrentGold;
+
+                if (currentPlayer.attackDamage > currentPlayer.maxAttackDamage)
+                {
+                    currentPlayer.attackDamage = currentPlayer.maxAttackDamage;
+
+                }
             }
         }
 
@@ -343,7 +345,6 @@ public class UIManager : MonoBehaviour
 
         if (obj.name == "Easy")
         {
-            Debug.Log("이지 버튼 누름");
             GameManager.Instance.isEasy = true;
             GameManager.Instance.isNormal = false;
             GameManager.Instance.isHard = false;

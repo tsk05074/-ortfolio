@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4316017606278313349}
   - component: {fileID: -2745217424667980641}
   - component: {fileID: 5936973847898924429}
-  - component: {fileID: 165043340042792900}
   - component: {fileID: -8452965338193182730}
-  m_Layer: 0
+  - component: {fileID: 165043340042792900}
+  m_Layer: 9
   m_Name: bee
   m_TagString: Enemy2
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   speed: 1
   sliderHP: {fileID: 8513909371897261720, guid: bc7d6deaa9ef7874994e5700d046a299, type: 3}
   enemytemplate: {fileID: 11400000, guid: c680203fe1f89ee46863fb428068c3d2, type: 2}
-  gold: 10
+  gold: 1
 --- !u!114 &-2745217424667980641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,19 +140,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &165043340042792900
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4203618607599092917}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3125, y: 0.96875, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &-8452965338193182730
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -169,3 +156,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &165043340042792900
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4203618607599092917}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3125, y: 0.96875, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5522643246286175937}
   - component: {fileID: -859681981122066226}
   - component: {fileID: -2854046736604981064}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 'neko '
   m_TagString: Enemy3
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   speed: 1
   sliderHP: {fileID: 8513909371897261720, guid: bc7d6deaa9ef7874994e5700d046a299, type: 3}
   enemytemplate: {fileID: 11400000, guid: c680203fe1f89ee46863fb428068c3d2, type: 2}
-  gold: 10
+  gold: 1
 --- !u!114 &-3028993047528381344
 MonoBehaviour:
   m_ObjectHideFlags: 0

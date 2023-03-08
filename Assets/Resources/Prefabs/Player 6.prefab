@@ -162,12 +162,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 4754009698144702266}
   weaponType: 0
-  projecttilePrefab: {fileID: 7107894905651220966, guid: 42669da5a7755074490de8a37c29f28f, type: 3}
-  attackRate: 0.5
+  projecttilePrefab: {fileID: 7107894905651220966, guid: eb4586d35c568eb4ead05e516f7ae125, type: 3}
+  attackRate: 1
   attackRange: 3
-  maxAttackDamage: 9
+  attackDamage: 2
+  maxAttackDamage: 14
   playerTemplate: {fileID: 11400000, guid: af716c336daa78543ad8fae2fb914ec0, type: 2}
-  level: 0
 --- !u!54 &-1613128870885335071
 Rigidbody:
   m_ObjectHideFlags: 0

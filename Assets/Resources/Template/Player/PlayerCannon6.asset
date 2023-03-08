@@ -17,4 +17,4 @@ MonoBehaviour:
   img: {fileID: 1992831127, guid: 612936ec3ea7aa848854abaf7205ca31, type: 3}
   attackRate: 0.5
   attackRange: 3
-  attackDamage: 1
+  attackDamage: 2
