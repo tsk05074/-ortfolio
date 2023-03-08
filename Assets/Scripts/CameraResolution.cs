@@ -6,25 +6,31 @@ public class CameraResolution : MonoBehaviour
 {
     private void Start()
     {
-        Camera camera = GetComponent<Camera>();
-        Rect rect = camera.rect;
+        SetResolution();
+    }
 
-        float scaleHeight = ((float)Screen.width / Screen.height) / ((float)9 / 16);
-        float scalewidth = 1f / scaleHeight;
+    public void SetResolution()
+    {
+        int setWidth = 1920;
+        int setHeight = 1080;
 
-        if (scaleHeight < 1)
+        int deviceWidth = Screen.width;
+        int deviceHeight = Screen.height;
+
+        Screen.SetResolution(setWidth, (int)(((float)deviceHeight / deviceWidth) * setWidth), true);
+
+        if ((float)setWidth / setHeight < (float)deviceWidth / deviceHeight)
         {
-            rect.height = scaleHeight;
-            rect.y = (1f - scaleHeight) / 2f;
+            float newWidth = ((float)setWidth / setHeight) / ((float)deviceWidth / deviceHeight);
+
+            Camera.main.rect = new Rect((1f - newWidth) / 2f, 0f, newWidth, 1f);
         }
         else
         {
-            rect.width = scalewidth;
-            rect.x = (1f - scalewidth) / 2f;
-        }
-        camera.rect = rect;
-    }
+            float newHeight = ((float)deviceWidth / deviceHeight) / ((float)setWidth / setHeight);
 
-    void OnPreCull() => GL.Clear(true,true, Color.black);
+            Camera.main.rect = new Rect(0f,(1f - newHeight) / 2f, 1f, newHeight);
+        }
+    }
    
 }
