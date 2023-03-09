@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using GoogleMobileAds.Api;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
     public bool isNormal;
     public bool isHard;
 
-
+    private InterstitialAd interstitial;
 
     private void Awake()
     {
@@ -56,6 +58,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        RequestIntersititial();
+
         SoundeManager.Instance.PlayBGM("TitleBGM");
 
         playerSpawnMG = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
@@ -69,8 +73,6 @@ public class GameManager : MonoBehaviour
         GameEnd();
         GameSuccess();
     }
-
-
 
     public IEnumerator GameStart()
     {
@@ -86,11 +88,36 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void RequestIntersititial()
+    {
+#if UNITY_ANDROID
+        string adUnitld = "ca-app-pub-4659297465066412/9030835687";
+#elif UNITY_IPHONE
+        string adUnitid = "unexpected_platform";
+#else
+        string adUnitid = "unexpected_platform";
+#endif
+
+        this.interstitial = new InterstitialAd(adUnitld);
+
+        this.interstitial.OnAdClosed += HandleOnAdClosed;
+
+        AdRequest request = new AdRequest.Builder().Build();
+
+        this.interstitial.LoadAd(request);
+    }
+
+    public void HandleOnAdClosed(object sender, EventArgs args)
+    {
+        //SoundeManager.Instance.PlaySFX("ClickSFX");
+        SceneManager.LoadScene("Title");
+    }
+
     void GameEnd()
     {
         if (enemyList > 70)
         {
-            SoundeManager.Instance.PlaySFX("Fail");
+            RetryGamePlay();
             UIManager.Instance.gameOverUI.gameObject.SetActive(true);
             Time.timeScale = timeScale;
         }
@@ -100,16 +127,22 @@ public class GameManager : MonoBehaviour
     {
         if (waveSpawnMG.waveText > 20 && enemyList > 70)
         {
+            RetryGamePlay();
             UIManager.Instance.gameClearUI.gameObject.SetActive(true);
-            SoundeManager.Instance.PlaySFX("Success");
             Time.timeScale = timeScale;
-
         }
     }
 
-    public void GameReStart(string str)
+    private void GameOver()
     {
-        SoundeManager.Instance.PlaySFX("ClickSFX");
-        SceneManager.LoadScene(str);
+        if (this.interstitial.IsLoaded())
+        {
+            this.interstitial.Show();
+        }
+    }
+
+    public void RetryGamePlay()
+    {
+        GameOver();
     }
 }

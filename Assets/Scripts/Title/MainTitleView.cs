@@ -9,6 +9,7 @@ public class MainTitleView : MonoBehaviour
 {
     public GameObject Option;
     public GameObject title;
+    public GameObject tutorial;
     public Image fadeImage;
 
     public Ease animEase;
@@ -53,6 +54,7 @@ public class MainTitleView : MonoBehaviour
         SoundeManager.Instance.PlaySFX("ClickSfx");
         title.SetActive(false);
         Option.SetActive(true);
+        tutorial.SetActive(false);
     }
 
     public void OptionOff()
@@ -62,6 +64,6 @@ public class MainTitleView : MonoBehaviour
         SoundeManager.Instance.PlaySFX("ClickSfx");
         Option.SetActive(false);
         title.SetActive(true);
-
+        tutorial.SetActive(true);
     }
 }
