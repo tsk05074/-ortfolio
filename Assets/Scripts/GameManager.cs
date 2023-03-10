@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     public bool isNormal;
     public bool isHard;
 
+    public bool isBanner = true;
+
     private InterstitialAd interstitial;
 
     private void Awake()
@@ -77,12 +79,13 @@ public class GameManager : MonoBehaviour
     public IEnumerator GameStart()
     {
         isGameStart = true;
-       
+
         //Time.timeScale = 1.0f;
 
         yield return new WaitForSeconds(0.1f);
         StartCoroutine(playerSpawnMG.SpawnPlayer());
         StartCoroutine(waveSpawnMG.SpawnEnemy());
+
 
         //yield return null;
 

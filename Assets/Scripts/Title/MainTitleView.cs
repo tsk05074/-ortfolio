@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
+
 public class MainTitleView : MonoBehaviour
 {
     public GameObject Option;
@@ -21,16 +22,37 @@ public class MainTitleView : MonoBehaviour
     [SerializeField]
     private GameObject video2;
 
+    public Image currentImage;
+    public Sprite[] nextImage;
+    BannerAdmobo banner;
+    int index = 0;
+
     private void Start()
     {
         StartCoroutine(GmaeVideo());
-
+        banner = GameObject.Find("Admob").GetComponent<BannerAdmobo>();
         SoundeManager.Instance.PlayBGM("TitleBGM");
         imageTrasform
             .DOShakeScale(animDuration, 0.2f, 1, 0.1f, true)
             //.SetEase(animEase)
             .SetLoops(-1, LoopType.Yoyo);
     }
+
+    public void ChangeImage()
+    {
+        if (index < 4)
+        {
+            Debug.Log(index);
+            currentImage.sprite = nextImage[index];
+            index++;
+        }
+        else
+        {
+            banner.Exis_ad();
+            SceneManager.LoadScene("Main");
+        }
+    }
+
     public IEnumerator GmaeVideo()
     {
         yield return new WaitForSeconds(7.0f);
@@ -44,6 +66,8 @@ public class MainTitleView : MonoBehaviour
     }
     public void StartGame()
     {
+        banner.Exis_ad();
+
         fadeImage.DOFade(1, 0.5f).From(0)
             .OnStart(() => { fadeImage.gameObject.SetActive(true); })
             .OnComplete(() => { SceneManager.LoadScene("Main"); });
@@ -59,11 +83,16 @@ public class MainTitleView : MonoBehaviour
 
     public void OptionOff()
     {
-        Debug.Log("오프버튼 누름");
-
         SoundeManager.Instance.PlaySFX("ClickSfx");
         Option.SetActive(false);
         title.SetActive(true);
         tutorial.SetActive(true);
+    }
+
+    public void OnTutorialButton()
+    {
+        SoundeManager.Instance.PlaySFX("ClickSfx");
+        tutorial.SetActive(true);
+
     }
 }

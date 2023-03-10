@@ -5,7 +5,7 @@ using GoogleMobileAds.Api;
 
 public class BannerAdmobo : MonoBehaviour
 {
-    private BannerView bannnerView;
+    public BannerView bannnerView;
 
     void Start()
     {
@@ -38,6 +38,16 @@ public class BannerAdmobo : MonoBehaviour
 
         this.bannnerView.LoadAd(request);
 
+    }
+
+    public void Loade_ad()
+    {
+        bannnerView.Show();
+    }
+
+    public void Exis_ad()
+    {
+        bannnerView.Hide();
     }
 
 }
